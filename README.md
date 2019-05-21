@@ -26,19 +26,23 @@ __Solution__
 - Create a mouseover function for the sunburst to see the values of the job industry
 - Create a dropdown menu for the scatterplot where the user can choose between different variables, like educational level, income, disease.
 
+*Visualizations*:
+![alt text](https://github.com/timdeb08/Programmeerproject/master/path/to/file.jpeg)
+
 __Prerequisites__
 ---
 *Data sources*:
-- https://opendata.cbs.nl/statline/#/CBS/nl/dataset/83582NED/table?ts=1558449897717, dataset about the economic activities per province. The dataset does not need much scraping.
-- https://opendata.cbs.nl/statline/#/CBS/nl/dataset/82915NED/table?ts=1558391278663, dataset about the working population. The dataset does not need much scraping.
-- https://opendata.cbs.nl/statline/#/CBS/nl/dataset/82816ned/table?dl=19D07, dataset about the educational levels between men and women. Don't need much scraping.
-- https://www.cbs.nl/nl-nl/maatwerk/2019/19/percentage-mensen-in-opleidingsniveau-en-leeftijdgroep, dataset about the educational levels per province.
+- https://opendata.cbs.nl/statline/#/CBS/nl/dataset/83582NED/table?ts=1558449897717 Dataset about the economic activities per province. The dataset does not need much scraping.
+- https://opendata.cbs.nl/statline/#/CBS/nl/dataset/82915NED/table?ts=1558391278663 Dataset about the working population. The dataset does not need much scraping.
+- https://opendata.cbs.nl/statline/#/CBS/nl/dataset/82816ned/table?dl=19D07 Dataset about the educational levels between men and women. It does not need much scraping.
+- https://www.cbs.nl/nl-nl/maatwerk/2019/19/percentage-mensen-in-opleidingsniveau-en-leeftijdgroep Dataset about the educational levels per province. It does not need much scraping
+- https://opendata.cbs.nl/statline/#/CBS/nl/dataset/84469NED/table?ts=1558465695553 Dataset about the unemployment rate per province. It does not need much scraping
 
 *External components*:
  - D3 tip
 
  *Similar visualization*:
- - https://nl.pinterest.com/kristensosulski/visualizing-unemployment-poverty-and-job-growth/, website with similar visualization about employment.
+ - https://nl.pinterest.com/kristensosulski/visualizing-unemployment-poverty-and-job-growth/ Website with similar visualization about employment.
 
  *Hardest part*:
  - Link the visualizations
