@@ -18,13 +18,12 @@ __Solution__
 *Main features*:
 - A datamap of the Netherlands with the colour of each province corresponding to the total unemployment rate.
 - When a province on the map is clicked, a sunburst will be shown with job industries and the total economic activity within a province.
-- A scatterplot with the unemployment on the y-axis and multiple variables on the x-axis, e.g. educational level.
+- A scatterplot with the unemployment on the y-axis and dropdown menu for multiple variables on the x-axis, e.g. educational level, income, disease.
 
 *Optional features*:
 - Create a dropdown menu where the user can choose between different years.
 - Create a mouseover function for the bullets on the scatterplot to show values of specific province.
 - Create a mouseover function for the sunburst to see the values of the job industry
-- Create a dropdown menu for the scatterplot where the user can choose between different variables, like educational level, income, disease.
 
 *Visualizations*:
 ![alt text](https://github.com/timdeb08/Programmeerproject/blob/master/file.jpeg)
@@ -46,8 +45,8 @@ __Prerequisites__
 
  *Hardest part*:
  - Link the visualizations
- - Use several variables for the x-axis with a dropdown menu
- - Create datamap with the different regions
+ - Use several variables for the x-axis of scatterplot with a dropdown menu
+ - Create datamap with the different regions and values
 
 
 <!-- Arbeidsmarkt situatie jongeren tussen 15 en 27 jaar per gemeente in Nederland, met wel of geen uitkering - datamap
