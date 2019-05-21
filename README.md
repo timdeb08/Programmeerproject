@@ -12,7 +12,7 @@ Unemployment is a global problem which has the potential to have significant and
 __Solution__
 ---
 *Idea*:
-My idea is to visualize and map the unemployment and analyze whether there are difference in terms of unemployment between the provinces.
+- My idea is to visualize and map the unemployment and analyze whether there are difference in terms of unemployment between the provinces.
 
 *Main features*:
 - A datamap of the Netherlands with the colour of each province corresponding to the total unemployment rate.
