@@ -27,7 +27,7 @@ __Solution__
 - Create a dropdown menu for the scatterplot where the user can choose between different variables, like educational level, income, disease.
 
 *Visualizations*:
-![alt text](https://github.com/timdeb08/Programmeerproject/master/path/to/file.jpeg)
+![alt text](https://github.com/timdeb08/Programmeerproject/blob/master/file.jpeg)
 
 __Prerequisites__
 ---
