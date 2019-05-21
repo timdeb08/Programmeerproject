@@ -1,6 +1,7 @@
 # Analysis of the unemployment rate in the Netherlands per province
 
 Name: Tim de Boer
+
 Studentnumber: 11202351
 
 The final project of the programming minor. For this project I will visualize the unemployment rate per province in the Netherlands using a timeline in the form of a line chart. Second, I will capture the differences in unemployment rates relative to several variables, e.g. educational level or amount of vacancies, in the form of a scatterplot. Finally, I want to visualize by industry per province and analyze whether the economic activities significantly differ among the provinces. For the latter I want to use a sunburst or pie chart.
@@ -42,6 +43,7 @@ __Prerequisites__
  *Hardest part*:
  - Link the visualizations
  - Use several variables for the x-axis with a dropdown menu
+ - Create datamap with the different regions
 
 
 <!-- Arbeidsmarkt situatie jongeren tussen 15 en 27 jaar per gemeente in Nederland, met wel of geen uitkering - datamap
@@ -55,6 +57,6 @@ Het opleidingsniveau per provincie in combinatie met werkloosheid per gemeente -
 
 Jeugdwerkloosheid met linechart man en vrouw -->
 
-datamap met kleuren Werkloosheid
+<!-- datamap met kleuren Werkloosheid
 scatterplot met y as werkloosheid, x as met verschillende variabelen
-Sun burst met bedrijfstak per provincie als je klikt op datamap
+Sun burst met bedrijfstak per provincie als je klikt op datamap -->
