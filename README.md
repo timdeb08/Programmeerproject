@@ -25,20 +25,24 @@ __Solution__
 - Create a mouseover function for the sunburst to show votes per political party.
 
 *Visualizations*:
-![alt text](https://github.com/timdeb08/Programmeerproject/blob/master/file.jpeg)
+![alt text](https://github.com/timdeb08/Programmeerproject/blob/master/README.md)
 
 __Prerequisites__
 ---
 *Data sources*:
-- https://www.verkiezingsuitslagen.nl/verkiezingen/detail/PS20190320/684845 Dataset about the results of the election of the Provinciale Staten. It does not need much scraping.
-- https://www.cbs.nl/nl-nl/maatwerk/2019/19/percentage-mensen-in-opleidingsniveau-en-leeftijdgroep Dataset about the educational levels per province. It does not need much scraping.
-- https://opendata.cbs.nl/statline/#/CBS/nl/dataset/84341ned/table?ts=1559560414075 Dataset about the income differences per province. Dataset is for the year 2017, so it does not correspond to the year of the election.
+- https://www.verkiezingsuitslagen.nl/verkiezingen/detail/PS20190320/684845
+Dataset about the results of the election of the Provinciale Staten. It does not need much scraping.
+- https://www.cbs.nl/nl-nl/maatwerk/2019/19/percentage-mensen-in-opleidingsniveau-en-leeftijdgroep
+Dataset about the educational levels per province. It does not need much scraping.
+- https://opendata.cbs.nl/statline/#/CBS/nl/dataset/84341ned/table?ts=1559560414075
+Dataset about the income differences per province. Dataset is for the year 2017, so it does not correspond to the year of the election.
 
 *External components*:
  - D3 tip
 
  *Similar visualization*:
- - https://www.verkiezingsuitslagen.nl/verkiezingen/detail/PS20190320/684845 This website shows similar visualizations of the results of the election.
+ - https://www.verkiezingsuitslagen.nl/verkiezingen/detail/PS20190320/684845
+ This website shows similar visualizations of the results of the election.
 
  *Hardest part*:
  - Link the visualizations
