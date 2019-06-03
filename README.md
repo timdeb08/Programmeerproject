@@ -8,7 +8,7 @@ The final project of the programming minor. For this project I will visualize th
 
 __Problem Statement__
 ---
-The huge political gain of the party Forum voor Democratie (FVD) was a striking event during the last elections. A party that exists for nearly two years, wins thirteen seats for the Provinciale Staten and beats the coalition. What is the reason behind this success for FVD of the last election? Is there a significant difference between municipalities or is there a correlation between attendance rate and the votes for FVD? With this analysis I want to map and visualize the wins of FVD after the last election using several linked visualizations. Eventually, I try to find a possible cause or explanation for this success. The visualization can be a tool to map the polical differences per province.
+The huge political gain of the party Forum voor Democratie (FVD) was a striking event during the last elections. A party that exists for nearly two years, wins thirteen seats for the Provinciale Staten and beats the coalition. What is the reason behind this success for FVD of the last election? Is there a significant difference between municipalities or is there a correlation between attendance rate and the votes for FVD? With this analysis I want to map and visualize the wins of FVD after the last election using several linked visualizations. Eventually, I try to find a possible cause or explanation for this success. The visualization can give an insight of the political environment in the Netherlands, which can be used by the government or people who are interested in the political aspects.
 
 __Solution__
 ---
@@ -16,7 +16,7 @@ __Solution__
 - My idea is to visualize and map the wins of FVD and analyze whether there are differences between the provinces or whether there is a correlation between votes and several factors.
 
 *Main features*:
-- A datamap of the Netherlands with the colour of each province corresponding to the total win of FVD.
+- A datamap of the Netherlands with the color of each province corresponding to the total win of FVD.
 - When a province on the map is clicked, a sunburst will be shown with the wins/losses of the corresponding parties.
 - A scatterplot with the votes on the y-axis and dropdown menu for multiple variables on the x-axis, e.g. educational level, income, attendance rate.
 
