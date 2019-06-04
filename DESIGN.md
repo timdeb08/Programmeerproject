@@ -24,5 +24,11 @@ __Technical components__
 ---
 Components | Description | Implementation
 ---------- | ----------- | --------------
-Data map | A map of the Netherlands on which all the provinces are shown with the corresponding seats Forum voor Democratie has won this election. It also has a click function for the provinces. When a province is clicked on, the other components update. | For the data map we need a map of the Netherlands and the first dataset from the list of data sources to visualize this component.
-Pie chart / Sunburst | This visualization updates with the click function of the data map. If a province is clicked on, this chart will show the seats of all the parties of that province. | For this visualization we need, again, the first dataset as this dataset contains not only information about FVD but also of all the other parties.
+Data map | A map of the Netherlands on which all the municipalities are shown with the corresponding seats Forum voor Democratie has won this election in that particular municipality. It also has a click function for the municipalities. When a municipality is clicked on, the other components update. | For the data map we need a map of the Netherlands and the first dataset from the list of data sources to visualize this component.
+Pie chart / Sunburst | This visualization updates with the click function of the data map. If a municipality is clicked on, this chart will show the seats of all the parties of that municipality. | For this visualization we need, again, the first dataset as this dataset contains not only information about FVD but also of all the other parties.
+Scatterplot | The scatterplot visualizes whether there is a correlation between an increase of seats for FVD in a specific municipality and the attendance rate/income difference/educational level of the municipality. With this I try to find an argument for the huge success of the party. | For this dataset we need to combine the first dataset and the dataset about educational level and income difference to plot the data points.
+
+__Plug ins__
+---
+- The d3 geo-projection
+- Color schemes derived from Color Brewer
