@@ -10,7 +10,7 @@ This paragraph contains a list of the data sources used for the final project of
 
 - https://www.verkiezingsuitslagen.nl/verkiezingen/detail/PS20190320/684845
 
-This dataset contains the results of the elections of the Provinciale Staten from 2019, including the attendance rate. The dataset contains all the practical information I need for my visualizations, so it does not need much scraping. The download is a CSV file which I convert to a JSON file with the municipalities as object.
+This dataset contains the results of the elections of the Provinciale Staten in 2019, including the attendance rate. The dataset contains all the practical information I need for my visualizations, so it does not need much scraping. The download is a CSV file which I convert to a JSON file with the municipalities as object.
 
 - https://www.cbs.nl/nl-nl/maatwerk/2019/19/percentage-mensen-in-opleidingsniveau-en-leeftijdgroep
 
@@ -30,5 +30,6 @@ Scatterplot | The scatterplot visualizes whether there is a correlation between 
 
 __Plug ins__
 ---
-- The d3 geo-projection
+- D3 data maps
 - Color schemes derived from Color Brewer
+- D3-tip

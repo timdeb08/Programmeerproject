@@ -16,7 +16,7 @@ __Solution__
 - My idea is to visualize and map the wins of FVD and analyze whether there are differences between the provinces or whether there is a correlation between votes and several factors.
 
 *Main features*:
-- A datamap of the Netherlands with the color of each province corresponding to the total win of FVD.
+- A datamap of the Netherlands with the color of each province corresponding to either the absolute votes of FVD or the votes of winning party in the specific municipality using a dropdown menu.
 - When a province on the map is clicked, a sunburst will be shown with the wins/losses of the corresponding parties.
 - A scatterplot with the votes on the y-axis and dropdown menu for multiple variables on the x-axis, e.g. educational level, income, attendance rate.
 
@@ -39,6 +39,7 @@ Dataset about the income differences per province. Dataset is for the year 2017,
 
 *External components*:
  - D3 tip
+ - Data map
 
  *Similar visualization*:
  - https://www.verkiezingsuitslagen.nl/verkiezingen/detail/PS20190320/684845
