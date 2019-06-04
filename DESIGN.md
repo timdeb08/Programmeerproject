@@ -24,4 +24,5 @@ __Technical components__
 ---
 Components | Description | Implementation
 ---------- | ----------- | --------------
-Data map | Hallo | Doei
+Data map | A map of the Netherlands on which all the provinces are shown with the corresponding seats Forum voor Democratie has won this election. It also has a click function for the provinces. When a province is clicked on, the other components update. | For the data map we need a map of the Netherlands and the first dataset from the list of data sources to visualize this component.
+Pie chart / Sunburst | This visualization updates with the click function of the data map. If a province is clicked on, this chart will show the seats of all the parties of that province. | For this visualization we need, again, the first dataset as this dataset contains not only information about FVD but also of all the other parties.
