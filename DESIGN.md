@@ -10,7 +10,7 @@ This paragraph contains a list of the data sources used for the final project of
 
 - https://www.verkiezingsuitslagen.nl/verkiezingen/detail/PS20190320/684845
 
-This dataset contains the results of the elections of the Provinciale Staten from 2019, including the attendance rate. The dataset contains all the practical information I need for my visualizations, so it does not need much scraping. The download is a CSV file which I convert to a JSON file with the municipalities as objects.
+This dataset contains the results of the elections of the Provinciale Staten from 2019, including the attendance rate. The dataset contains all the practical information I need for my visualizations, so it does not need much scraping. The download is a CSV file which I convert to a JSON file with the municipalities as object.
 
 - https://www.cbs.nl/nl-nl/maatwerk/2019/19/percentage-mensen-in-opleidingsniveau-en-leeftijdgroep
 
@@ -19,3 +19,9 @@ This dataset contains the average educational level of the citizens per province
 - https://opendata.cbs.nl/statline/#/CBS/nl/dataset/84341ned/table?ts=1559560414075
 
 This dataset contains data about the income of household per municipality. The dataset does not need much scraping, only convertion from CSV to JSON. This time the municipalities are the objects.
+
+__Technical components__
+---
+Components | Description | Implementation
+---------- | ----------- | --------------
+Data map | Hallo | Doei
