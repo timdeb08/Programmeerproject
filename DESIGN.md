@@ -18,7 +18,7 @@ This dataset contains the average educational level of the citizens per province
 
 - https://opendata.cbs.nl/statline/#/CBS/nl/dataset/84341ned/table?ts=1559560414075
 
-This dataset contains data about the income of household per municipality. The dataset does not need much scraping, only convertion from CSV to JSON. This time the municipalities are the objects.
+This dataset contains data about the income of household per municipality. There is a little problem because the year does not correspond to the year of the election. This can result in a distorted image of the reality. The dataset does not need much scraping, only convertion from CSV to JSON. This time the municipalities are the objects.
 
 __Technical components__
 ---
