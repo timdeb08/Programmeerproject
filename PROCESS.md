@@ -20,3 +20,7 @@ Student number: 11202351
 
 ### Day 4
 - Ik heb eindelijk een data map kunnen vinden voor mijn visualisatie. Ik kon lange tijd niks vinden, dus ik wilde de keuze maken tussen een kaart van 2017 of 2019. Gelukkig heb ik nog een kaart van 2019 kunnen vinden, want dit scheelt aardig wat tijd. Dit is ook waar ik grotendeels van de dag mee bezig ben geweest.
+
+### Day 5
+- Vandaag aan de slag gegaan met het visualiseren van de data map. De data map is nu te zien op project.html, een html die ik voor nu even kort gebruik om de visualisatie voor elkaar te krijgen. De visualisatie is enkel nog niet gelinkt aan de dataset, dit hoop ik dit weekend al te kunnen doen.
+- Voor de rest loopt alles op dit moment vrij voorspoedig.
