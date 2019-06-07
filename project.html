@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Land use statistics map</title>
+
+    <!-- Custom CSS styles -->
+    <link href="project.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <h3>Land use statistics map</h3>
+    <div id="map"><!-- Map container --></div>
+
+    <!-- JS libraries -->
+    <script type="text/javascript" src="d3/d3.v5.js"></script>
+    <script>
+      var d3v5 = window.d3;
+      window.d3 = null;
+    </script>
+    <script src="https://d3js.org/d3.v3.js" charset="utf-8"></script>
+    <script>
+      var d3v3 = d3;
+      window.d3 = null;
+    </script>
+
+    <!-- Custom JS code -->
+    <script src="map.js"></script>
+
+  </body>
+</html>
