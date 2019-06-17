@@ -33,7 +33,7 @@ function createMap(map, data){
                   .attr("class", "d3-tip")
                   .offset([-8, 0])
                   .html(function(d) {
-                    return d.properties.Gemeentenaam + "<br>" + "FvD: " + data[d.properties.Gemeentenaam]["Forum voor Democratie"]
+                    return d.properties.Gemeentenaam + "<br>" + "FvD: " + data[d.properties.Gemeentenaam]["ForumvoorDemocratie"]
                   });
 
   svg.call(tooltip);
@@ -49,7 +49,7 @@ function createMap(map, data){
           .on("mouseover", tooltip.show)
           .on("mouseout", tooltip.hide)
           .on("click", function(d) {
-            // pieChart(d.properties.Gemeentenaam, data)
+            pieChart(d.properties.Gemeentenaam, data)
             scatterPlot(d.properties.Gemeentenaam, data)
           });
 
@@ -109,7 +109,7 @@ function pieChart(gemeente, data) {
               .outerRadius(radius * 0.8);
 
   // Set the color scale
-  var color = d3.scaleOrdinal()
+  var color = d3.scaleOrdinal();
               .domain(values.length)
               .range(d3.schemeSet2);
 
@@ -203,29 +203,79 @@ function scatterPlot(gemeente, data) {
   // Remove former scatterplot
   d3.select("#scatterplot").select("svg").remove();
 
-  // Get keys and values from dataset
-  keys = Object.keys(data[gemeente])
-  values = [];
-  for (i in keys) {
-    values.push(data[gemeente][keys[i]]);
-  }
+  // Get the keys and values of JSON file
+  valuesGemeente = Object.values(data[gemeente])
+  gemeenteNaam = Object.keys(data)
+  valuesAlleGemeente= Object.values(data)
+  console.log(values)
+  console.log(keys1)
+  console.log(values1)
 
-  // Put data in dict
+  // Create dataset with all municipalities per province
   var data_set = {};
-  for (i = 0; i < keys.length; i++) {
-    data_set[keys[i]] = values[i]
-  }
-  // console.log(data_set);
-
-  // Get the necessary data
-  Object.keys(data_set).forEach(function(key) {
-    if (key !== "Forum voor Democratie" && key !== "Opkomst") {
-      delete data_set[key];
+  for (i = 0; i < gemeenteNaam.length; i++) {
+    if (valuesGemeente[0] == valuesAlleGemeente[i]["OuderRegioNaam"]) {
+      data_set[gemeenteNaam[i]] = valuesAlleGemeente[i]
     }
-  })
+  }
 
-  console.log(data_set)
+  // Make dict loopable for d3 functions
+  data_set2 = d3.entries(data_set)
 
+  // Set margin, width, height
+  var margin = {top: 10, right: 30, bottom: 30, left: 60},
+      width = 560 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
 
+  // Append svg object to the body of the page
+  var svg = d3.select("#scatterplot")
+              .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+              .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+  // Add the x axis
+  var x = d3.scaleLinear()
+            .domain([0, d3.max(data_set2, function(d) { return d.value.ForumvoorDemocratie; })])
+            .range([0, width]);
+  svg.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x));
+
+  // Add the y axis
+  var y = d3.scaleLinear()
+            .domain([0, d3.max(data_set2, function(d) { return d.value.Opkomst; })])
+            .range([height, 0]);
+  svg.append("g")
+    .call(d3.axisLeft(y));
+
+  // Add a tooltip
+  var tooltip = d3.tip()
+                .attr("class", "d3-tip")
+                .html(function(d) {
+                  key = d.key
+                  value1 = d.value.Opkomst
+                  value2 = d.value.ForumvoorDemocratie
+                  return "Gemeente: " + key + "<br>" + "Opkomst: " + value1 + "<br>" + "Aantal stemmen: " + value2;
+                });
+  svg.call(tooltip);
+
+  // Add dots
+  svg.append("g")
+    .selectAll("dot")
+    .data(data_set2)
+    .enter()
+    .append("circle")
+      .attr("cx", function(d) { return x(d.value.ForumvoorDemocratie); })
+      .attr("cy", function(d) { return y(d.value.Opkomst); })
+      .attr("r", 8)
+      .style("fill", "#69b3a2")
+      .style("opacity", 0.3)
+      .style("stroke", "white")
+
+  // Initiate tooltip
+  svg.selectAll("circle")
+      .on("mouseover", tooltip.show)
+      .on("mouseout", tooltip.hide);
 }
