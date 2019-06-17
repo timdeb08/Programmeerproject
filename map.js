@@ -127,10 +127,15 @@ function pieChart(gemeente, data) {
               .data(pie(d3.entries(data_set)))
               .enter()
               .append("path")
-                .attr("d", arc)
-                .attr("fill", function(d) { return color(d.data.key); })
-                .each(function(d) { this._current - d; })
-                .style("stroke", "white");
+
+  path.transition()
+      .duration(1000)
+        .attr("fill", function(d) { return color(d.data.key); })
+        .attr("d", arc)
+        .each(function(d) { this._current = d; })
+      .style("stroke", "white")
+      .style("stroke-width", "2px")
+      .style("opacity", 1);
 
   // Initiate tooltip
   path.on("mouseover", tooltip.show)
@@ -164,57 +169,6 @@ function pieChart(gemeente, data) {
         .attr("y", legendRectSize - legendSpacing)
         .text(function(d) { return d; });
 
-
-  // // Append svg object to div
-  // var svg = d3.select("#piechart")
-  //             .append("svg")
-  //               .attr("width", width)
-  //               .attr("height", height)
-  //             .append("g")
-  //               .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-  //
-  // // Compute the position of each group on the pie
-  // var pie = d3.pie()
-  //             .value(function(d) { return d.value; })
-  // var data_ready = pie(d3.entries(data_set))
-  //
-  // // Shape helper to build arcs
-  // var arc = d3.arc()
-  //             .innerRadius(radius * 0.4)
-  //             .outerRadius(radius * 0.8);
-  //
-  // // Set the color scale
-  // var color = d3.scaleOrdinal()
-  //             .domain(values.length)
-  //             .range(d3.schemeSet2);
-  //
-
-  //
-  // // Create the pie chart
-  // svg.selectAll("mySlices")
-  //     .data(data_ready)
-  //     .enter()
-  //     .append("path")
-  //       .attr("d", d3.arc()
-  //                   .innerRadius(100)
-  //                   .outerRadius(radius)
-  //         )
-  //       .attr("fill", function(d) { return(color(d.data.value)) })
-  //       .attr("stroke", "white")
-  //     .style("stroke-width", "2px")
-  //     .style("opacity", 1);
-  //
-
-
-  // // Text in the middle of pie chart
-  // svg.append('text')
-  //     .attr('class', 'text')
-  //     .attr('dy', -15)
-  //     .html('Political diversion')
-  //     .style('font-size', '.9em')
-  //     .style('text-anchor', 'middle');
-
-
 }
 
 function scatterPlot(gemeente, data) {
@@ -237,7 +191,6 @@ function scatterPlot(gemeente, data) {
 
   // Make dict loopable for d3 functions
   datasetReady = d3.entries(data_set)
-  console.log(datasetReady)
 
   // Set margin, width, height
   var margin = {top: 10, right: 30, bottom: 30, left: 60},
