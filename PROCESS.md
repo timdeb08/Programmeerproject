@@ -32,4 +32,15 @@ Student number: 11202351
 ### Wednesday 12th
 - De pie chart is gelinkt met datamap, waardoor de waardes van elke provincie kan worden laten zien.
 - Ik wilde de namen van de partijen op de slices van de pie chart zetten, enkel zijn deze namen vrij lang dus heb ik ervoor gekozen om een legenda te maken. De tooltip laat de partij met de bijbehorende stemmen zien.
-- Ik heb een begin kunnen maken aan het opstellen van de dataset voor de scatterplot. 
+- Ik heb een begin kunnen maken aan het opstellen van de dataset voor de scatterplot.
+
+### Thursday 13th
+- Ik heb vandaag de scatterplot proberen af te maken, maar het is niet gelukt omdat ik er niet uit kwam wat in deze visualisatie wilde laten zien. Als ik alle gemeentes zou laten zien, dan zou ik geen interactie meer hebben tussen de drie figuren. Ik heb daarom besloten om in de scatterplot de gemeentes per provincie te laten. Hierdoor verandert de scatterplot als je op gemeentes klikt in andere provincie, waardoor de visualisatie interactief blijft.
+- De rest van de middag ben ik bezig geweest om de dataset te kunnen krijgen, zodat per provincie alle gemeentes werden weergegeven.
+
+### Friday 14th
+- Ik was vandaag ziek, dus ik heb weinig tot niks kunnen doen.
+
+### Monday 17th
+- De dataset voor de scatterplot is af. Heb daarmee ook de scatterplot af kunnen maken.
+- Voor de scatterplot wil ik nog wel een dropdown-menu maken waarbij gekozen kan worden tussen inkomensniveau van de gemeente en opkomstpercentage per gemeente. 
