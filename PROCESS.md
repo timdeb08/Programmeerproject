@@ -43,4 +43,5 @@ Student number: 11202351
 
 ### Monday 17th
 - De dataset voor de scatterplot is af. Heb daarmee ook de scatterplot af kunnen maken.
-- Voor de scatterplot wil ik nog wel een dropdown-menu maken waarbij gekozen kan worden tussen inkomensniveau van de gemeente en opkomstpercentage per gemeente. 
+- Voor de scatterplot wil ik nog wel een dropdown-menu maken waarbij gekozen kan worden tussen inkomensniveau van de gemeente en opkomstpercentage per gemeente.
+- Aan de pie chart heb ik een legenda toegevoegd met de bijhorende kleur en labels van elke politieke partij.  
