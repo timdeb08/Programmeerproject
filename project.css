@@ -48,3 +48,15 @@ path:hover {
   top: 100%;
   left: 0;
 }
+
+/* legend for pie chart */
+.legend {
+  font-size: 14px;
+}
+rect {
+  cursor: pointer;
+  stroke-width: 2;
+}
+rect.disabled {
+  fill: transparent !important;
+}

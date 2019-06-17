@@ -84,34 +84,33 @@ function pieChart(gemeente, data) {
     }
   })
 
-  // Set margin, width, height and radius
-  var margin = 40;
-  var width = 450;
-  var height = 450;
-  var radius = Math.min(width, height) / 2 - margin
+  // Set width, height and radius
+  var width = 1200,
+      height = 800,
+      radius = Math.min(width, height) / 2;
 
-  // Append svg object to div
+  // Legend dimensions
+  var legendRectSize = 25,
+      legendSpacing = 6;
+
+  // Define color scale
+  var color = d3.scaleOrdinal(d3.schemeCategory10);
+
+  // Initiate svg element
   var svg = d3.select("#piechart")
               .append("svg")
                 .attr("width", width)
                 .attr("height", height)
               .append("g")
-                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+                .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")");
 
-  // Compute the position of each group on the pie
-  var pie = d3.pie()
-              .value(function(d) { return d.value; })
-  var data_ready = pie(d3.entries(data_set))
-
-  // Shape helper to build arcs
   var arc = d3.arc()
               .innerRadius(radius * 0.4)
               .outerRadius(radius * 0.8);
 
-  // Set the color scale
-  var color = d3.scaleOrdinal();
-              .domain(values.length)
-              .range(d3.schemeSet2);
+  // Creates angles of the segments
+  var pie = d3.pie()
+              .value(function(d) { return d.value; });
 
   // Initiate tooltip
   var tooltip = d3.tip()
@@ -123,78 +122,98 @@ function pieChart(gemeente, data) {
                 });
   svg.call(tooltip);
 
-  // Create the pie chart
-  svg.selectAll("mySlices")
-      .data(data_ready)
-      .enter()
-      .append("path")
-        .attr("d", d3.arc()
-                    .innerRadius(100)
-                    .outerRadius(radius)
-          )
-        .attr("fill", function(d) { return(color(d.data.value)) })
-        .attr("stroke", "white")
-      .style("stroke-width", "2px")
-      .style("opacity", 1);
-
-  // Text on the slices
-  svg.selectAll("mySlices")
-      .data(data_ready)
-      .enter()
-      .append("text")
-      .text(function(d) { return d.data.key })
-        .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
-      .style("text-anchor", "middle")
-      .style("font-size", 10)
+  // Creating the chart
+  var path = svg.selectAll("path")
+              .data(pie(d3.entries(data_set)))
+              .enter()
+              .append("path")
+                .attr("d", arc)
+                .attr("fill", function(d) { return color(d.data.key); })
+                .each(function(d) { this._current - d; })
+                .style("stroke", "white");
 
   // Initiate tooltip
-  svg.selectAll("path")
-      .on("mouseover", tooltip.show)
+  path.on("mouseover", tooltip.show)
       .on("mouseout", tooltip.hide);
 
-  // Text in the middle of pie chart
-  svg.append('text')
-      .attr('class', 'text')
-      .attr('dy', -15)
-      .html('Political diversion')
-      .style('font-size', '.9em')
-      .style('text-anchor', 'middle');
+  // Define legend
+  var legend = svg.selectAll(".legend")
+                .data(color.domain())
+                .enter()
+                .append("g")
+                  .attr("class", "legend")
+                  .attr("transform", function(d, i) {
+                    var height = legendRectSize + legendSpacing;
+                    var offset = height * color.domain().length / 2;
+                    var horz = 18 * legendRectSize;
+                    var vert = i * height - offset;
+
+                    return "translate(" + horz + "," + vert + ")";
+                  });
+
+  // Adding colored squares to legend
+  legend.append("rect")
+        .attr("width", legendRectSize)
+        .attr("height", legendRectSize)
+        .style("fill", color)
+        .style("stroke", color);
+
+  // Adding text to legend
+  legend.append("text")
+        .attr("x", legendRectSize + legendSpacing)
+        .attr("y", legendRectSize - legendSpacing)
+        .text(function(d) { return d; });
 
 
-  // CREATE LEGEND FOR THE POLITICAL PARTIES
-  // NAMES ARE TOO LONG FOR IN THE PIE CHART
-
-  // var polyline = svg.select('.lines')
-  //             .selectAll('polyline')
-  //             .data(pie(d3.entries(data_set)))
-  //           .enter().append('polyline')
-  //             .attr('points', function(d) {
-  //               // see label transform function for explanations of these three lines.
-  //               var pos = outerArc.centroid(d);
-  //               pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
-  //               return [arc.centroid(d), outerArc.centroid(d), pos]
-  //             });
+  // // Append svg object to div
+  // var svg = d3.select("#piechart")
+  //             .append("svg")
+  //               .attr("width", width)
+  //               .attr("height", height)
+  //             .append("g")
+  //               .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
   //
-  // var label = svg.select('.labels').selectAll('text')
-  //                 .data(pie(d3.entries(data_set)))
-  //               .enter().append('text')
-  //                 .attr('dy', '.35em')
-  //                 .html(function(d) {
-  //                     return d.data.key + d.data.value;
+  // // Compute the position of each group on the pie
+  // var pie = d3.pie()
+  //             .value(function(d) { return d.value; })
+  // var data_ready = pie(d3.entries(data_set))
   //
-  //                 })
-  //                 .attr('transform', function(d) {
-  //                     var pos = outerArc.centroid(d);
-  //                     pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
-  //                     return 'translate(' + pos + ')';
-  //                 })
-  //                 .style('text-anchor', function(d) {
-  //                     return (midAngle(d)) < Math.PI ? 'start' : 'end';
-  //                 });
+  // // Shape helper to build arcs
+  // var arc = d3.arc()
+  //             .innerRadius(radius * 0.4)
+  //             .outerRadius(radius * 0.8);
+  //
+  // // Set the color scale
+  // var color = d3.scaleOrdinal()
+  //             .domain(values.length)
+  //             .range(d3.schemeSet2);
   //
 
   //
-  // function midAngle(d) { return d.startAngle + (d.endAngle - d.startAngle) / 2; }
+  // // Create the pie chart
+  // svg.selectAll("mySlices")
+  //     .data(data_ready)
+  //     .enter()
+  //     .append("path")
+  //       .attr("d", d3.arc()
+  //                   .innerRadius(100)
+  //                   .outerRadius(radius)
+  //         )
+  //       .attr("fill", function(d) { return(color(d.data.value)) })
+  //       .attr("stroke", "white")
+  //     .style("stroke-width", "2px")
+  //     .style("opacity", 1);
+  //
+
+
+  // // Text in the middle of pie chart
+  // svg.append('text')
+  //     .attr('class', 'text')
+  //     .attr('dy', -15)
+  //     .html('Political diversion')
+  //     .style('font-size', '.9em')
+  //     .style('text-anchor', 'middle');
+
 
 }
 
@@ -207,9 +226,6 @@ function scatterPlot(gemeente, data) {
   valuesGemeente = Object.values(data[gemeente])
   gemeenteNaam = Object.keys(data)
   valuesAlleGemeente= Object.values(data)
-  console.log(values)
-  console.log(keys1)
-  console.log(values1)
 
   // Create dataset with all municipalities per province
   var data_set = {};
@@ -220,7 +236,8 @@ function scatterPlot(gemeente, data) {
   }
 
   // Make dict loopable for d3 functions
-  data_set2 = d3.entries(data_set)
+  datasetReady = d3.entries(data_set)
+  console.log(datasetReady)
 
   // Set margin, width, height
   var margin = {top: 10, right: 30, bottom: 30, left: 60},
@@ -237,7 +254,7 @@ function scatterPlot(gemeente, data) {
 
   // Add the x axis
   var x = d3.scaleLinear()
-            .domain([0, d3.max(data_set2, function(d) { return d.value.ForumvoorDemocratie; })])
+            .domain([0, d3.max(datasetReady, function(d) { return d.value.ForumvoorDemocratie; })])
             .range([0, width]);
   svg.append("g")
     .attr("transform", "translate(0," + height + ")")
@@ -245,7 +262,7 @@ function scatterPlot(gemeente, data) {
 
   // Add the y axis
   var y = d3.scaleLinear()
-            .domain([0, d3.max(data_set2, function(d) { return d.value.Opkomst; })])
+            .domain([0, d3.max(datasetReady, function(d) { return d.value.Opkomst; })])
             .range([height, 0]);
   svg.append("g")
     .call(d3.axisLeft(y));
@@ -264,7 +281,7 @@ function scatterPlot(gemeente, data) {
   // Add dots
   svg.append("g")
     .selectAll("dot")
-    .data(data_set2)
+    .data(datasetReady)
     .enter()
     .append("circle")
       .attr("cx", function(d) { return x(d.value.ForumvoorDemocratie); })
