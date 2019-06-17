@@ -15,8 +15,8 @@ OUTPUT_JSON = "verkiezing.json"
 def read_file():
 
     # Read the csv file and convert into panda dataframa
-    df = pd.read_csv(INPUT_CSV, index_col='RegioNaam', usecols=None, sep=';')\
-        .fillna(0)
+    df = pd.read_csv(INPUT_CSV, index_col='RegioNaam', usecols=None,
+                     sep=';').fillna(0)
 
     return df
 
