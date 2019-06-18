@@ -32,6 +32,8 @@ def clean_dataframe(df):
     df = df.drop(['BlancoStemmen'], axis=1)
     df = df.drop(['GeldigeStemmen'], axis=1)
 
+    df['Inkomen'] = (df['Inkomen'].astype(float))
+
     return df
 
 
