@@ -8,10 +8,22 @@ Promise.all(requests).then(function(res) {
 
 function createMap(map, data){
 
+  // keys = Object.keys(data)
+  // values = Object.values(data)
+  //
+  // var winningParty = {};
+  // var FvdVotes = {};
+  // for (i = 0; i < keys.length; i++) {
+  //   if (values[i]["ForumvoorDemocratie"]) {
+  //     valueFvD = values[i]["ForumvoorDemocratie"]
+  //     FvdVotes["Forum voor Democratie"] = valueFvD
+  //   }
+  // }
   // Set width and height
   var width = 700,
       height = 700;
 
+  console.log(data)
   // Define map projection
   var projection = d3.geoMercator()
                     .scale(8200)
@@ -24,7 +36,7 @@ function createMap(map, data){
               .projection(projection);
 
   // Initiate svg element
-  var svg = d3.select("#container")
+  var svg = d3.select("#datamap")
               .append("svg")
                 .attr("width", width)
                 .attr("height", height);
@@ -207,7 +219,7 @@ function scatterPlot(gemeente, data) {
 
   // Add the x axis
   var x = d3.scaleLinear()
-            .domain([0, d3.max(datasetReady, function(d) { return d.value.ForumvoorDemocratie; })])
+            .domain([0, d3.max(datasetReady, function(d) { return d.value.Opkomst; })])
             .range([0, width]);
   svg.append("g")
     .attr("transform", "translate(0," + height + ")")
@@ -215,7 +227,7 @@ function scatterPlot(gemeente, data) {
 
   // Add the y axis
   var y = d3.scaleLinear()
-            .domain([0, d3.max(datasetReady, function(d) { return d.value.Opkomst; })])
+            .domain([0, d3.max(datasetReady, function(d) { return d.value.ForumvoorDemocratie; })])
             .range([height, 0]);
   svg.append("g")
     .call(d3.axisLeft(y));
@@ -237,8 +249,8 @@ function scatterPlot(gemeente, data) {
     .data(datasetReady)
     .enter()
     .append("circle")
-      .attr("cx", function(d) { return x(d.value.ForumvoorDemocratie); })
-      .attr("cy", function(d) { return y(d.value.Opkomst); })
+      .attr("cx", function(d) { return x(d.value.Opkomst); })
+      .attr("cy", function(d) { return y(d.value.ForumvoorDemocratie); })
       .attr("r", 8)
       .style("fill", "#69b3a2")
       .style("opacity", 0.3)
@@ -248,4 +260,17 @@ function scatterPlot(gemeente, data) {
   svg.selectAll("circle")
       .on("mouseover", tooltip.show)
       .on("mouseout", tooltip.hide);
+
+  var xValue = 'Opkomst'
+  d3.selectAll(".xvalue")
+    .on("click", function() {
+      var xValue = this.getAttribute("value");
+      svg.selectAll("circle")
+          .data(datasetReady)
+          .transition()
+          .attr("cx", function(d) { console.log(d.value.xValue); })
+          .attr("cy", function(d) { return y(d.value.ForumvoorDemocratie); })
+          .transition()
+          .duration(500);
+    });
 }
