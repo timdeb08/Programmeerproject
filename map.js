@@ -362,13 +362,13 @@ function scatterPlot(gemeente, data) {
         ])
     xAxis.scale(xScale) // Change the X scale
     d3.select("#xAxis") // Redraw X-axis
-      .transition().duration(1000)
+      .transition().duration(300)
       .call(xAxis)
     d3.select("#xAxisLabel")  // Change X-axis labels
-      .transition().duration(1000)
+      .transition().duration(300)
       .text(value)
     d3.selectAll("circle") // Move the circles
-      .transition().duration(1000)
+      .transition().duration(300)
       .delay(function(d, i) { return i * 100; })
         .attr("cx", function(d) { return xScale(d.value[value]); })
   }
