@@ -45,3 +45,11 @@ Student number: 11202351
 - De dataset voor de scatterplot is af. Heb daarmee ook de scatterplot af kunnen maken.
 - Voor de scatterplot wil ik nog wel een dropdown-menu maken waarbij gekozen kan worden tussen inkomensniveau van de gemeente en opkomstpercentage per gemeente.
 - Aan de pie chart heb ik een legenda toegevoegd met de bijhorende kleur en labels van elke politieke partij.  
+
+### Tuesday 18th
+- Ik heb vandaag gewerkt aan de dropdown voor de scatterplot, alleen ik krijg het nog niet voor elkaar om de value voor de x-as te veranderen door middel van de update. Ik heb wel een begin kunnen maken, maar het is niet nog niet af.
+- Daarnaast gekeken naar het updaten van de data map, waarbij ook een dropdown menu wordt gemaakt waaruit gekozen kan worden tussen de winnende partij per gemeente en het aantal stemmen op Forum voor Democratie per gemeente.
+
+### Wednesday 19th
+- Vandaag heb ik de dropdown menu af kunnen maken voor de scatterplot. Er kan nu gekozen worden tussen respectievelijk de opkomst per gemeente en het inkomensniveau per gemeente. Zo kan er gekeken worden of er een verband bestaat tussen de opkomst/het inkomensniveau en het aantal stemmen op Forum voor Democratie per gemeente per provincie.
+- Daarnaast heb ik voor het updaten van de data map de dataset kunnen creëren voor de winnende partij, waarbij het hoogst aantal stemmen op een bepaalde partij is gevonden en vervolgens in een dict is gestopt met gemeente als de key. Alleen de dropdown moet gemaakt worden om de map nog goed te updaten.
