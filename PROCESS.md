@@ -53,3 +53,9 @@ Student number: 11202351
 ### Wednesday 19th
 - Vandaag heb ik de dropdown menu af kunnen maken voor de scatterplot. Er kan nu gekozen worden tussen respectievelijk de opkomst per gemeente en het inkomensniveau per gemeente. Zo kan er gekeken worden of er een verband bestaat tussen de opkomst/het inkomensniveau en het aantal stemmen op Forum voor Democratie per gemeente per provincie.
 - Daarnaast heb ik voor het updaten van de data map de dataset kunnen creëren voor de winnende partij, waarbij het hoogst aantal stemmen op een bepaalde partij is gevonden en vervolgens in een dict is gestopt met gemeente als de key. Alleen de dropdown moet gemaakt worden om de map nog goed te updaten.
+
+### Thursday 20th
+- Vandaag de hele dag bezig geweest met het laten functioneren van de dropdown. Is helaas nog niet gelukt. Wel heb ik labels toe kunnen voegen aan de assen van de scatterplot. Voornamelijk de hele dag dus bezig geweest met het dropdown menu.
+
+### Friday 21th
+- De dropdown voor de data map werkt half. De kleuren op de map worden veranderd aan de hand van de verschillende datasets. Echter als je klikt op een gemeente op de map en daarna weer probeert te switchen tussen de twee opties dan komt er een foutmelding, omdat de gemeentenaam undefined is. Ik heb geen enkel idee waar dit door komt. Er worden na de click function ineens meer paden gemaakt dan het aantal gemeentes, waardoor het switchen tussen de datasets niet meer werkt.
