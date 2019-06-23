@@ -5,43 +5,68 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-</head>
-<body style="height:1500px">
+  <link href="homepage.css" rel="stylesheet" type="text/css">
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
+
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
       <a class="navbar-brand" href="homepage.html">Political Analysis</a>
     </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="homepage.html">Home</a></li>
-      <li><a href="introduction.html">Introduction</a></li>
-      <li><a href="analysis.html">Analysis</a></li>
-    </ul>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="homepage.html">Home</a></li>
+        <li><a href="introduction.html">Introduction</a></li>
+        <li><a href="analysis.html">Analysis</a></li>
+      </ul>
+    </div>
   </div>
 </nav>
 
-<div class="container" style="margin-top:50px">
-  <h3>The reason behind the huge success of Forum voor Democratie</h3>
-  <div class="row">
-    <div class="col-md-4">
-      <p></p>
-      <p>.</p>
+<div class="container-fluid text-center">
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+      <p><a href="#">Link</a></p>
+      <p><a href="#">Link</a></p>
+      <p><a href="#">Link</a></p>
     </div>
-    <div class="col-md-4">
-      <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-      <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
+    <div class="col-sm-8 text-left">
+      <h1>Een hele goeiemorgen</h1>
+      <p>De website voor alle onderzoeken binnen de politiek. Vandaag met het volgende onderzoek: De groei achter Forum voor Democratie.
+      Wat is de reden achter de enorme groei bij de Provinciale Staten verkiezing? En hoeveel stemmen heeft Forum voor Democratie nou gekregen
+      ten opzichte van de andere partijen? Daarnaast rijst de vraag of er eventueel een verband is tussen de opkomst van de stemmers en het aantal stemmen
+      op de partij per gemeente. Of is er misschien een verschil te zien tussen gemeentes waar de inkomensniveaus verschillen? Dit zal aan bod komen in het volgende onderzoek.</p>
+      <p>Het antwoord op de onderzoeksvraag wordt ondersteund met een data map, waarbij Nederland met de gemeentegrenzen te zien is. Per gemeente wordt met kleur aangegeven hoeveel stemmen
+      Forum voor Democratie heeft gekregen. Ten tweede is er een pie chart te zien met de verdeling van het aantal stemmen per gemeente. Als laatste is er een scatterplot te zien
+      waarbij gekeken kan worden of er eventueel een verband is tussen de twee bovengenoemde variabelen.</p>
+      <hr>
+      <h3>Test</h3>
+      <p>Lorem ipsum...</p>
     </div>
-    <div class="col-md-4">
-      <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-      <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
+    <div class="col-sm-2 sidenav">
+      <div class="well">
+        <p>ADS</p>
+      </div>
+      <div class="well">
+        <p>ADS</p>
+      </div>
     </div>
   </div>
 </div>
 
-<h1>Scroll this page to see the effect</h1>
+<footer class="container-fluid text-center">
+  <p>Footer Text</p>
+</footer>
 
 </body>
 </html>
