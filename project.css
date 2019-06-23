@@ -1,3 +1,35 @@
+.grid-template {
+  padding-top: 2rem;
+  padding-bottom: 0.5rem;
+  text-align: center;
+}
+
+body {
+  padding-top: 3rem;
+}
+
+/* Create grid elements */
+.wrapper {
+  display: grid;
+  /* grid-template-columns: repeat(3, 1fr); */
+  grid: 270px 270px / repeat(4, 270px);
+  grid-gap: 5px;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+.one {
+  grid-column: 1;
+  grid-row: 1;
+}
+.two {
+  grid-column: 4;
+  grid-row: 1;
+}
+.three {
+  grid-column: 1;
+  grid-row: 4;
+}
+
 svg {
   background-color: white;
 }
@@ -5,11 +37,11 @@ svg {
 /* Style for the svg datamap */
 #datamap {
   float: left;
-  width: 600px;
-  margin-left: 1px;
+  width: 300px;
+  margin-left: 0.5px;
   margin-right: auto;
-  margin-top: 30px;
-  padding: 20px;
+  margin-top: 5px;
+  padding: 10px;
   background-color: white;
   /* box-shadow: 1px 1px 1px 2px rgb(217, 217, 217); */
 }

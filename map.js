@@ -1,10 +1,19 @@
 // Load the datasets
 var requests = [d3.json("/scripts/gemeentegrenzen.json"), d3.json("/scripts/verkiezing.json")];
 Promise.all(requests).then(function(res) {
+  // initPage(res[1])
   createMap(res[0], res[1])
 }).catch(function(e) {
   throw(e);
 });
+
+function initPage(data) {
+
+  gemeente = "Aa en Hunze"
+  pieChart(gemeente, data)
+  scatterPlot(gemeente, data)
+
+}
 
 function createMap(map, data){
 
@@ -32,139 +41,165 @@ function createMap(map, data){
 
     // Put values in list and include in dataset with winning parties
     var list = {};
-    list["Winnende"] = party
-    list["Stemmen"] = votes
+    list["Winnende partij"] = party
+    // list["Stemmen"] = votes
     winningParty[keys[i]] = list
 
   }
 
-  // Initiate dropdown with data sections needed
-  var body = d3.select("#datamap")
-  var selectData = [ { "text" : "Forum voor Democratie" },
-                     { "text" : "Stemmen" },
-                   ]
+    // Initiate dropdown with data sections needed
+    var body = d3.select("#datamap")
+    var selectData = [ { "text" : "Forum voor Democratie" },
+                       { "text" : "Winnende partij" },
+                     ]
 
-   // Select X-axis variable
-   var span = body.append("span")
-               .text("Select X-Axis variable: ")
-               .attr("class","dropMap")
+     // Select X-axis variable
+     var span = body.append("span")
+                 .text("Select X-Axis variable: ")
+                 .attr("class","dropMap")
 
-   var input = body.append("select")
-                   .attr("id", "dataSelect")
-                   .attr("class", "dataSel")
-                   .on("change", dataChange)
-                 .selectAll("option")
-                 .data(selectData)
-                 .enter()
-                 .append("option")
-                   .attr("value", function(d) { return d.text; })
-                   .text(function(d) { return d.text; })
-   body.append("br")
+     var input = body.append("select")
+                     .attr("id", "dataSelect")
+                     .attr("class", "dataSel")
+                     .on("change", dataChange)
+                   .selectAll("option")
+                   .data(selectData)
+                   .enter()
+                   .append("option")
+                     .attr("value", function(d) { return d.text; })
+                     .text(function(d) { return d.text; })
+     body.append("br")
 
-  // Set width and height
-  var width = 750,
-      height = 750;
+    // Set width and height
+    var width = 650,
+        height = 650;
 
-  // Define map projection
-  var projection = d3.geoMercator()
-                    .scale(8200)
-                    .center([0, 52])
-                    .rotate([-4.8, 0])
-                    .translate([width / 2, height / 2]);
+    // Define map projection
+    var projection = d3.geoMercator()
+                      .scale(8200)
+                      .center([0, 52])
+                      .rotate([-4.8, 0])
+                      .translate([width / 2.5, height / 1.7]);
 
-  // Prepare a path object and apply the projection to it
-  var path = d3.geoPath()
-              .projection(projection);
+    // Prepare a path object and apply the projection to it
+    var path = d3.geoPath()
+                .projection(projection);
 
-  // Initiate svg element
-  var svg = d3.select("#datamap")
-              .append("svg")
-                .attr("width", width)
-                .attr("height", height);
+    // Initiate svg element
+    var svg = d3.select("#datamap")
+                .append("svg")
+                  .attr("width", width)
+                  .attr("height", height);
 
-  var tooltip = d3.tip()
-                  .attr("class", "d3-tip")
-                  .attr("id", "tooltip")
-                  .offset([-8, 0])
-                  .html(function(d) {
-                    return d.properties.Gemeentenaam + "<br>" + "FvD: " + data[d.properties.Gemeentenaam]["Forum voor Democratie"]
-                  });
-  svg.call(tooltip);
+    var tooltip = d3.tip()
+                    .attr("class", "d3-tip")
+                    .attr("id", "tooltip")
+                    .offset([-8, 0])
+                    .html(function(d) {
+                      return d.properties.Gemeentenaam + "<br>" + "FvD: " + data[d.properties.Gemeentenaam]["Forum voor Democratie"]
+                    });
+    svg.call(tooltip);
 
-  var color = d3.scaleLinear()
-                .domain([0, 355])
-                // .range(["white", "#eff3ff", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6"])
-                .range(colorbrewer.Blues[9]);
+    // Color scaling
+    var color = d3.scaleLinear()
+                  .domain([0, 355])
+                  // .range(["white", "#eff3ff", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6"]);
+                  .range(colorbrewer.Blues[9]);
 
-  // Make map interactive
-  svg.selectAll("path")
-      .data(map.features)
-      .enter()
-      .append("path")
-        .attr("d", path)
-        .attr("stroke", "rgba(8, 81, 156, 0.2)")
-        .attr("fill", function(d, i) {
-          if (typeof data[d.properties.Gemeentenaam] !== "undefined") {
-            waarde = data[d.properties.Gemeentenaam]["Forum voor Democratie"]
-          }
-          else {
-            waarde = 0;
-          }
-          return color(parseInt(waarde));
-        })
-          .on("mouseover", tooltip.show)
-          .on("mouseout", tooltip.hide)
-          .on("click", function(d) {
-            pieChart(d.properties.Gemeentenaam, data)
-            scatterPlot(d.properties.Gemeentenaam, data)
-          });
-
-  // Get the highest number of an array
-  function getMaxOfArray(numArray) {
-    return Math.max.apply(null, numArray);
-  }
-
-  // Get key by the value
-  function getKeyByValue(object, value) {
-    return Object.keys(object).find(key => object[key] === value);
-  }
-
-  function dataChange() {
-
-    var value = this.value // Get new value
-
-    if (value == "Forum voor Democratie") {
-      data_set = data
-      color = d3.scaleLinear()
-              .domain([0, 355])
-              .range(colorbrewer.Blues[9])
-    }
-
-    if (value == "Stemmen") {
-      data_set = winningParty
-      color = d3.scaleLinear()
-                .domain([0, 355])
-                .range(colorbrewer.Reds[9])
-    }
-
-    // Color change
-    d3.selectAll("path")
-      .transition().duration(1000)
-      .delay(function(d, i) { return i * 3; })
-        .attr("fill", function(d) {
-            if (typeof data_set[d.properties.Gemeentenaam] !== "undefined") {
-              waarde = data_set[d.properties.Gemeentenaam][value]
+    // Make map interactive
+    svg.selectAll("path")
+        .data(map.features)
+        .enter()
+        .append("path")
+          .attr("d", path)
+          .attr("stroke", "rgba(8, 81, 156, 0.2)")
+          .attr("fill", function(d, i) {
+            // console.log(i)
+            if (typeof data[d.properties.Gemeentenaam] !== "undefined") {
+              waarde = data[d.properties.Gemeentenaam]["Forum voor Democratie"]
             }
             else {
               waarde = 0;
             }
-          return color(parseInt(waarde));
-        })
-        // .on("click", function(d) {
-        //   pieChart(d.properties.Gemeentenaam, data)
-        //   scatterPlot(d.properties.Gemeentenaam, data)
-        // });
-  }
+            return color(parseInt(waarde));
+          })
+            .on("mouseover", tooltip.show)
+            .on("mouseout", tooltip.hide)
+            .on("click", function(d) {
+              pieChart(d.properties.Gemeentenaam, data)
+              scatterPlot(d.properties.Gemeentenaam, data)
+            });
+
+    // Append a defs (for definition) element to your SVG
+    var defs = svg.append("defs");
+
+    // Append a linearGradient element to the defs and give it a unique id
+    var linearGradient = defs.append("linearGradient")
+      .attr("id", "linear-gradient");
+
+    // Horizontal gradient
+    linearGradient
+        .attr("x1", "0%")
+        .attr("y1", "0%")
+        .attr("x2", "100%")
+        .attr("y2", "0%");
+    //Set the color for the start (0%)
+    linearGradient.append("stop")
+        .attr("offset", "0%")
+        .attr("stop-color", "white"); //light blue
+
+    //Set the color for the end (100%)
+    linearGradient.append("stop")
+        .attr("offset", "100%")
+        .attr("stop-color",  "#4292c6"); //dark blue
+
+    //Draw the rectangle and fill with gradient
+    svg.append("rect")
+        .attr("width", 300)
+        .attr("height", 20)
+        .style("fill", "url(#linear-gradient)");
+
+
+    function getMaxOfArray(numArray) {
+      return Math.max.apply(null, numArray);
+    }
+
+    function getKeyByValue(object, value) {
+      return Object.keys(object).find(key => object[key] === value);
+    }
+
+    function dataChange() {
+
+      var value = this.value // Get new value
+
+      if (value == "Forum voor Democratie") {
+        data_set = data
+        color = d3.scaleLinear()
+                .domain([0, 355])
+                .range(colorbrewer.Blues[9])
+      }
+
+      if (value == "Winnende partij") {
+        data_set = winningParty
+        color = d3.scaleOrdinal()
+                  .domain([0, 355])
+                  .range(colorbrewer.Reds[9])
+      }
+
+      // Color change
+      d3.selectAll("path")
+        .transition().duration(1000)
+        .delay(function(d, i) { return i * 3; })
+          .attr("fill", function(d, i) {
+              if (typeof data_set[d.properties.Gemeentenaam] !== "undefined") {
+                waarde = data_set[d.properties.Gemeentenaam][value]
+              }
+              else {
+                waarde = 0;
+              }
+            return color(parseInt(waarde));
+          })
+      }
 };
 
 
@@ -198,7 +233,7 @@ function pieChart(gemeente, data) {
   })
 
   // Set width, height and radius
-  var width = 1200,
+  var width = 800,
       height = 600,
       radius = Math.min(width, height) / 2;
 
@@ -207,7 +242,7 @@ function pieChart(gemeente, data) {
       legendSpacing = 6;
 
   // Define color scale
-  var color = d3.scaleOrdinal(d3.schemeCategory10);
+  var color = d3.scaleOrdinal(d3.schemeSet3);
 
   // Initiate svg element
   var svg = d3.select("#piechart")
@@ -215,7 +250,7 @@ function pieChart(gemeente, data) {
                 .attr("width", width)
                 .attr("height", height)
               .append("g")
-                .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")");
+                .attr("transform", "translate(" + (width / 3) + "," + (height / 2) + ")");
 
   var arc = d3.arc()
               .innerRadius(radius * 0.4)
@@ -292,6 +327,7 @@ function scatterPlot(gemeente, data) {
   // Remove former dropdown menu
   d3.selectAll(".textDrop").remove()
   d3.selectAll(".xSel").remove()
+  d3.select(".title").remove()
 
   // Get the keys and values of JSON file
   valuesGemeente = Object.values(data[gemeente])
@@ -317,12 +353,12 @@ function scatterPlot(gemeente, data) {
 
   // Title for scatterplot
   var title = body.append("text")
-      .text("Scatterplot   ")
+      .text("Scatterplot to analyze whether there is a correlation/causation between de attendance rate/income level of a municipality and the total votes of Forum voor Democratie. The municipalities are shown per province.")
       .attr("class", "title")
 
   // Select X-axis variable
   var span = body.append("span")
-              .text("Select X-Axis variable: ")
+              .text("Choose between the following X-axis variable: ")
               .attr("class","textDrop")
 
   var yInput = body.append("select")
