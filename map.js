@@ -17,6 +17,8 @@ function initPage(data) {
 
 function createMap(map, data){
 
+  var globdata = data;
+
   keys = Object.keys(data)
   values = Object.values(data)
 
@@ -46,7 +48,7 @@ function createMap(map, data){
     winningParty[keys[i]] = list
 
   }
-
+  console.log(winningParty)
     // Initiate dropdown with data sections needed
     var body = d3.select("#datamap")
     var selectData = [ { "text" : "Forum voor Democratie" },
@@ -70,51 +72,51 @@ function createMap(map, data){
                      .text(function(d) { return d.text; })
      body.append("br")
 
-    // Set width and height
-    var width = 650,
+     // Set width and height
+     var width = 650,
         height = 650;
 
-    // Define map projection
-    var projection = d3.geoMercator()
-                      .scale(8200)
+     // Define map projection
+     var projection = d3.geoMercator()
+                      .scale(7000)
                       .center([0, 52])
                       .rotate([-4.8, 0])
-                      .translate([width / 2.5, height / 1.7]);
+                      .translate([width / 3, height / 2]);
 
-    // Prepare a path object and apply the projection to it
-    var path = d3.geoPath()
+     // Prepare a path object and apply the projection to it
+     var path = d3.geoPath()
                 .projection(projection);
 
-    // Initiate svg element
-    var svg = d3.select("#datamap")
+     // Initiate svg element
+     var svg = d3.select("#datamap")
                 .append("svg")
                   .attr("width", width)
                   .attr("height", height);
 
-    var tooltip = d3.tip()
+     // Color scaling
+     var color = d3.scaleLinear()
+                  .domain([0, 355])
+                  // .range(["white", "#eff3ff", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6"]);
+                  .range(colorbrewer.BuGn[9]);
+
+     // Create tooltip
+     var tooltip = d3.tip()
                     .attr("class", "d3-tip")
                     .attr("id", "tooltip")
                     .offset([-8, 0])
                     .html(function(d) {
                       return d.properties.Gemeentenaam + "<br>" + "FvD: " + data[d.properties.Gemeentenaam]["Forum voor Democratie"]
                     });
-    svg.call(tooltip);
+     svg.call(tooltip);
 
-    // Color scaling
-    var color = d3.scaleLinear()
-                  .domain([0, 355])
-                  // .range(["white", "#eff3ff", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6"]);
-                  .range(colorbrewer.Blues[9]);
-
-    // Make map interactive
-    svg.selectAll("path")
+     // Make map interactive
+     svg.selectAll("path")
         .data(map.features)
         .enter()
         .append("path")
           .attr("d", path)
           .attr("stroke", "rgba(8, 81, 156, 0.2)")
           .attr("fill", function(d, i) {
-            // console.log(i)
             if (typeof data[d.properties.Gemeentenaam] !== "undefined") {
               waarde = data[d.properties.Gemeentenaam]["Forum voor Democratie"]
             }
@@ -130,35 +132,6 @@ function createMap(map, data){
               scatterPlot(d.properties.Gemeentenaam, data)
             });
 
-    // Append a defs (for definition) element to your SVG
-    var defs = svg.append("defs");
-
-    // Append a linearGradient element to the defs and give it a unique id
-    var linearGradient = defs.append("linearGradient")
-      .attr("id", "linear-gradient");
-
-    // Horizontal gradient
-    linearGradient
-        .attr("x1", "0%")
-        .attr("y1", "0%")
-        .attr("x2", "100%")
-        .attr("y2", "0%");
-    //Set the color for the start (0%)
-    linearGradient.append("stop")
-        .attr("offset", "0%")
-        .attr("stop-color", "white"); //light blue
-
-    //Set the color for the end (100%)
-    linearGradient.append("stop")
-        .attr("offset", "100%")
-        .attr("stop-color",  "#4292c6"); //dark blue
-
-    //Draw the rectangle and fill with gradient
-    svg.append("rect")
-        .attr("width", 300)
-        .attr("height", 20)
-        .style("fill", "url(#linear-gradient)");
-
 
     function getMaxOfArray(numArray) {
       return Math.max.apply(null, numArray);
@@ -173,33 +146,39 @@ function createMap(map, data){
       var value = this.value // Get new value
 
       if (value == "Forum voor Democratie") {
-        data_set = data
+        selected_data = data
         color = d3.scaleLinear()
                 .domain([0, 355])
-                .range(colorbrewer.Blues[9])
+                .range(colorbrewer.BuGn[9])
       }
 
       if (value == "Winnende partij") {
-        data_set = winningParty
-        color = d3.scaleOrdinal()
-                  .domain([0, 355])
-                  .range(colorbrewer.Reds[9])
+        selected_data = winningParty
+        color = d3.scaleOrdinal(["#7fc97f","#beaed4","#fdc086","#ffff99","#386cb0","#f0027f","#bf5b17","#666666"])
       }
 
       // Color change
-      d3.selectAll("path")
+      d3.select("#datamap").selectAll("path")
         .transition().duration(1000)
         .delay(function(d, i) { return i * 3; })
           .attr("fill", function(d, i) {
-              if (typeof data_set[d.properties.Gemeentenaam] !== "undefined") {
-                waarde = data_set[d.properties.Gemeentenaam][value]
+            if (value == "Winnende partij") {
+              if (typeof selected_data[d.properties.Gemeentenaam] !== "undefined") {
+                return color(selected_data[d.properties.Gemeentenaam][value])
+              }
+            }
+            else {
+              if (typeof selected_data[d.properties.Gemeentenaam] !== "undefined") {
+                waarde = selected_data[d.properties.Gemeentenaam][value]
               }
               else {
                 waarde = 0;
               }
+            }
             return color(parseInt(waarde));
           })
-      }
+
+    }
 };
 
 
