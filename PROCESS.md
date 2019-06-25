@@ -59,3 +59,11 @@ Student number: 11202351
 
 ### Friday 21th
 - De dropdown voor de data map werkt half. De kleuren op de map worden veranderd aan de hand van de verschillende datasets. Echter als je klikt op een gemeente op de map en daarna weer probeert te switchen tussen de twee opties dan komt er een foutmelding, omdat de gemeentenaam undefined is. Ik heb geen enkel idee waar dit door komt. Er worden na de click function ineens meer paden gemaakt dan het aantal gemeentes, waardoor het switchen tussen de datasets niet meer werkt.
+
+### Monday 24th
+- De dropdown voor de data map werkt eindelijk! Ik had per ongeluk alle paden geselecteerd, waardoor na het klikken ook de paden van de pie chart werden geselecteerd. Dit heb ik nu op kunnen lossen met behulp van Jasper.
+- Daarnaast nog kort gewerkt aan design van de pagina, maar voornamelijk bezig geweest met het oplossen van die dropdown.
+
+### Tuesday 25th
+- Vandaag legenda's gemaakt voor de data map. Voor de eerste keus een linear gradient legenda, waarbij de kleur aangeeft hoe hoog het aantal stemmen op Forum voor Democratie is. De andere legenda geeft door middel van de kleur aan welke partij gewonnen heeft voor elke gemeente.
+- Daarnaast de wrappers helemaal kloppend gemaakt en de svg's in de wrappers gestopt, zodat alles netjes lijkt. Ook een tekstvak gemaakt, waar ik het onderzoek en de onderzoeksvraag kan uitleggen. Ook kan daarin worden uitgelegd wat ik elk van de visualisaties weergeven. 
