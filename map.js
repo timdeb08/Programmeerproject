@@ -76,7 +76,7 @@ function createMap(map, data){
                       .scale(6000)
                       .center([0, 52])
                       .rotate([-4.8, 0])
-                      .translate([width / 3.3, height / 1.8]);
+                      .translate([width / 3.3, height / 1.7]);
 
      // Prepare a path object and apply the projection to it
      var path = d3.geoPath()
@@ -135,72 +135,16 @@ function createMap(map, data){
               scatterPlot(d.properties.Gemeentenaam, data)
             });
 
-    // Append a defs (for definition) element to your SVG
-    var defs = svg.append("defs");
+    // Draw legend
+    drawLegend()
 
-    // Append a linearGradient element to the defs and give it a unique id
-    var linearGradient = defs.append("linearGradient")
-                          .attr("id", "linear-gradient");
-
-    // // Horizontal gradient
-    // linearGradient
-    //     .attr("x1", "0%")
-    //     .attr("y1", "0%")
-    //     .attr("x2", "100%")
-    //     .attr("y2", "0%");
-
-    // Set the color for the start (0%)
-    linearGradient.append("stop")
-                  .attr("offset", "0%")
-                  .attr("stop-color", "#f7fbff");
-
-    // Set the color for the end (100%)
-    linearGradient.append("stop")
-                  .attr("offset", "100%")
-                  .attr("stop-color", "#08306b");
-
-    // Width, height of legend
-    leg_width = 230;
-    leg_height = 20;
-
-    // Locate the legend on right place in svg
-    x_start = 450;
-    x_end = x_start + width;
-    distance = 73
-
-    // Draw the rectangle and fill with gradient
-    svg.append("rect")
-        .attr("x", x_start)
-        .attr("y", 450)
-        .attr("width", leg_width)
-        .attr("height", leg_height)
-        .style("fill", "url(#linear-gradient)");
-
-    function addLabels(svg, x, label) {
-
-      svg.append("text")
-          .attr("y", 480)
-          .attr("x", x)
-          .attr("text-anchor", "middle")
-          .attr("font-size", "13px")
-          .text(label)
-          .style("fill", "black");
-    }
-
-    labels = ["0", "10,000", "20,000", "30,000"]
-
-    for (i in labels) {
-      var offset = x_start + distance * i
-      addLabels(svg, offset, labels[i])
-    }
-
-    // svg.append("text")
-    //   .attr("x", (width / 2))
-    //   .attr("y", 35)
-    //   // .attr("text-anchor", "middle")
-    //   .style("font-size", "16px")
-    //     // .style("text-decoration", "underline")
-    //     .text("Map of the Netherlands and the political diversion");
+    svg.append("text")
+      .attr("x", (width / 2.1))
+      .attr("y", 35)
+      .attr("text-anchor", "middle")
+      .style("font-size", "16px")
+        .style("text-decoration", "underline")
+        .text("Uitslag van de Provinciale Staten verkiezing in 2019");
 
     function getMaxOfArray(numArray) {
       return Math.max.apply(null, numArray);
@@ -251,7 +195,7 @@ function createMap(map, data){
 
         // Remove other legend
         d3.select("#datamap").selectAll("linearGradient").remove()
-        d3.select("#datamap").selectAll("text").remove()
+        d3.select("#datamap").selectAll("linearGradient").selectAll("text").remove()
 
         // Legend dimensions
         var legendRectSize = 10,
@@ -267,7 +211,7 @@ function createMap(map, data){
                           var height = legendRectSize + legendSpacing;
                           var offset = height * color.domain().length / 2;
                           var horz = 8 * legendRectSize + 370;
-                          var vert = i * height - offset + 400;
+                          var vert = i * height - offset + 430;
 
                           return "translate(" + horz + "," + vert + ")";
                         })
@@ -290,36 +234,62 @@ function createMap(map, data){
         // Remove other legend
         d3.select("#datamap").selectAll("legend").remove();
 
-        // Append a defs (for definition) element to your SVG
-        var defs = svg.append("defs");
-
-        // Append a linearGradient element to the defs and give it a unique id
-        var linearGradient = defs.append("linearGradient")
-                              .attr("id", "linear-gradient");
-
-        // Horizontal gradient
-        linearGradient
-            .attr("x1", "0%")
-            .attr("y1", "0%")
-            .attr("x2", "100%")
-            .attr("y2", "0%");
-
-        // Set the color for the start (0%)
-        linearGradient.append("stop")
-                      .attr("offset", "0%")
-                      .attr("stop-color", "#f7fbff");
-
-        // Set the color for the end (100%)
-        linearGradient.append("stop")
-                      .attr("offset", "100%")
-                      .attr("stop-color", "#08306b");
-
-        // Draw the rectangle and fill with gradient
-        svg.append("rect")
-            .attr("width", 300)
-            .attr("height", 20)
-            .style("fill", "url(#linear-gradient)");
+        // Draw legend
+        drawLegend()
       }
+    }
+
+    function drawLegend() {
+      // Append a defs (for definition) element to your SVG
+      var defs = svg.append("defs");
+
+      // Append a linearGradient element to the defs and give it a unique id
+      var linearGradient = defs.append("linearGradient")
+                            .attr("id", "linear-gradient");
+
+      // Set the color for the start (0%)
+      linearGradient.append("stop")
+                    .attr("offset", "0%")
+                    .attr("stop-color", "#f7fbff");
+
+      // Set the color for the end (100%)
+      linearGradient.append("stop")
+                    .attr("offset", "100%")
+                    .attr("stop-color", "#08306b");
+
+      // Width, height of legend
+      leg_width = 230;
+      leg_height = 20;
+
+      // Locate the legend on right place in svg
+      x_start = 430;
+      x_end = x_start + width;
+      distance = 73
+
+      // Draw the rectangle and fill with gradient
+      svg.append("rect")
+          .attr("x", x_start)
+          .attr("y", 450)
+          .attr("width", leg_width)
+          .attr("height", leg_height)
+          .style("fill", "url(#linear-gradient)");
+
+      labels = ["0", "10,000", "20,000", "30,000"]
+
+      for (i in labels) {
+        var offset = x_start + distance * i
+        addLabels(svg, offset, labels[i])
+      }
+    }
+
+    function addLabels(svg, x, label) {
+      svg.append("text")
+          .attr("y", 480)
+          .attr("x", x)
+          .attr("text-anchor", "middle")
+          .attr("font-size", "13px")
+          .text(label)
+          .style("fill", "black");
     }
 };
 
@@ -370,7 +340,7 @@ function pieChart(gemeente, data) {
                 .attr("width", width)
                 .attr("height", height)
               .append("g")
-                .attr("transform", "translate(" + (width / 3.1) + "," + (height  / 1.7) + ")");
+                .attr("transform", "translate(" + (width / 3.2) + "," + (height  / 1.7) + ")");
 
   var arc = d3.arc()
               .innerRadius(radius * 0.4)
