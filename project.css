@@ -23,11 +23,16 @@ body {
 }
 .two {
   grid-column: 4;
-  grid-row: 1;
+  grid-row: 4;
 }
 .three {
   grid-column: 1;
   grid-row: 4;
+}
+
+.four {
+  grid-column: 4;
+  grid-row: 1;
 }
 
 svg {
@@ -37,14 +42,55 @@ svg {
 /* Style for the svg datamap */
 #datamap {
   float: left;
-  width: 300px;
+  width: 700px;
+  height: 600px;
   margin-left: 0.5px;
   margin-right: auto;
   margin-top: 5px;
   padding: 10px;
   background-color: white;
-  /* box-shadow: 1px 1px 1px 2px rgb(217, 217, 217); */
+  box-shadow: 1px 1px 1px 2px rgb(217, 217, 217);
 }
+
+/* Style for the svg scatterplot */
+#scatterplot {
+  float: left;
+  width: 700px;
+  height: 550px;
+  margin-left: 0.5px;
+  margin-right: auto;
+  margin-top: 5px;
+  padding: 10px;
+  background-color: white;
+  box-shadow: 1px 1px 1px 2px rgb(217, 217, 217);
+}
+
+/* Style for the svg piechart */
+#piechart {
+  float: left;
+  width: 700px;
+  height: 550px;
+  margin-left: 0.5px;
+  margin-right: auto;
+  margin-top: 5px;
+  padding: 10px;
+  background-color: white;
+  box-shadow: 1px 1px 1px 2px rgb(217, 217, 217);
+}
+
+/* Style for the svg text */
+#text {
+  float: left;
+  width: 700px;
+  height: 600px;
+  margin-left: 0.5px;
+  margin-right: auto;
+  margin-top: 5px;
+  padding: 10px;
+  background-color: white;
+  box-shadow: 1px 1px 1px 2px rgb(217, 217, 217);
+}
+
 
 /* Set hover color */
 path:hover {

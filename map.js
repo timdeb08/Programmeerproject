@@ -1,23 +1,19 @@
 // Load the datasets
 var requests = [d3.json("/scripts/gemeentegrenzen.json"), d3.json("/scripts/verkiezing.json")];
 Promise.all(requests).then(function(res) {
-  // initPage(res[1])
+  initPage(res[1])
   createMap(res[0], res[1])
 }).catch(function(e) {
   throw(e);
 });
 
 function initPage(data) {
-
   gemeente = "Aa en Hunze"
   pieChart(gemeente, data)
   scatterPlot(gemeente, data)
-
 }
 
 function createMap(map, data){
-
-  var globdata = data;
 
   keys = Object.keys(data)
   values = Object.values(data)
@@ -44,11 +40,10 @@ function createMap(map, data){
     // Put values in list and include in dataset with winning parties
     var list = {};
     list["Winnende partij"] = party
-    // list["Stemmen"] = votes
     winningParty[keys[i]] = list
 
   }
-  console.log(winningParty)
+
     // Initiate dropdown with data sections needed
     var body = d3.select("#datamap")
     var selectData = [ { "text" : "Forum voor Democratie" },
@@ -57,7 +52,7 @@ function createMap(map, data){
 
      // Select X-axis variable
      var span = body.append("span")
-                 .text("Select X-Axis variable: ")
+                 .text("Kies de variabel: ")
                  .attr("class","dropMap")
 
      var input = body.append("select")
@@ -73,15 +68,15 @@ function createMap(map, data){
      body.append("br")
 
      // Set width and height
-     var width = 650,
-        height = 650;
+     var width = 690,
+        height = 550;
 
      // Define map projection
      var projection = d3.geoMercator()
-                      .scale(7000)
+                      .scale(6000)
                       .center([0, 52])
                       .rotate([-4.8, 0])
-                      .translate([width / 3, height / 2]);
+                      .translate([width / 3.3, height / 1.8]);
 
      // Prepare a path object and apply the projection to it
      var path = d3.geoPath()
@@ -97,7 +92,7 @@ function createMap(map, data){
      var color = d3.scaleLinear()
                   .domain([0, 355])
                   // .range(["white", "#eff3ff", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6"]);
-                  .range(colorbrewer.BuGn[9]);
+                  .range(colorbrewer.Blues[9]);
 
      // Create tooltip
      var tooltip = d3.tip()
@@ -105,7 +100,14 @@ function createMap(map, data){
                     .attr("id", "tooltip")
                     .offset([-8, 0])
                     .html(function(d) {
-                      return d.properties.Gemeentenaam + "<br>" + "FvD: " + data[d.properties.Gemeentenaam]["Forum voor Democratie"]
+                      gemeente =  d.properties.Gemeentenaam
+                      value = document.getElementById("dataSelect").value
+                      if (value == "Forum voor Democratie") {
+                      return gemeente + "<br>" + "FvD: " + data[gemeente]["Forum voor Democratie"]
+                      }
+                      else {
+                        return gemeente + "<br>" + "Winnende partij: " + winningParty[gemeente]["Winnende partij"]
+                      }
                     });
      svg.call(tooltip);
 
@@ -117,8 +119,9 @@ function createMap(map, data){
           .attr("d", path)
           .attr("stroke", "rgba(8, 81, 156, 0.2)")
           .attr("fill", function(d, i) {
-            if (typeof data[d.properties.Gemeentenaam] !== "undefined") {
-              waarde = data[d.properties.Gemeentenaam]["Forum voor Democratie"]
+            gemeente = d.properties.Gemeentenaam
+            if (typeof data[gemeente] !== "undefined") {
+              waarde = data[gemeente]["Forum voor Democratie"]
             }
             else {
               waarde = 0;
@@ -132,6 +135,72 @@ function createMap(map, data){
               scatterPlot(d.properties.Gemeentenaam, data)
             });
 
+    // Append a defs (for definition) element to your SVG
+    var defs = svg.append("defs");
+
+    // Append a linearGradient element to the defs and give it a unique id
+    var linearGradient = defs.append("linearGradient")
+                          .attr("id", "linear-gradient");
+
+    // // Horizontal gradient
+    // linearGradient
+    //     .attr("x1", "0%")
+    //     .attr("y1", "0%")
+    //     .attr("x2", "100%")
+    //     .attr("y2", "0%");
+
+    // Set the color for the start (0%)
+    linearGradient.append("stop")
+                  .attr("offset", "0%")
+                  .attr("stop-color", "#f7fbff");
+
+    // Set the color for the end (100%)
+    linearGradient.append("stop")
+                  .attr("offset", "100%")
+                  .attr("stop-color", "#08306b");
+
+    // Width, height of legend
+    leg_width = 230;
+    leg_height = 20;
+
+    // Locate the legend on right place in svg
+    x_start = 450;
+    x_end = x_start + width;
+    distance = 73
+
+    // Draw the rectangle and fill with gradient
+    svg.append("rect")
+        .attr("x", x_start)
+        .attr("y", 450)
+        .attr("width", leg_width)
+        .attr("height", leg_height)
+        .style("fill", "url(#linear-gradient)");
+
+    function addLabels(svg, x, label) {
+
+      svg.append("text")
+          .attr("y", 480)
+          .attr("x", x)
+          .attr("text-anchor", "middle")
+          .attr("font-size", "13px")
+          .text(label)
+          .style("fill", "black");
+    }
+
+    labels = ["0", "10,000", "20,000", "30,000"]
+
+    for (i in labels) {
+      var offset = x_start + distance * i
+      addLabels(svg, offset, labels[i])
+    }
+
+    // svg.append("text")
+    //   .attr("x", (width / 2))
+    //   .attr("y", 35)
+    //   // .attr("text-anchor", "middle")
+    //   .style("font-size", "16px")
+    //     // .style("text-decoration", "underline")
+    //     .text("Map of the Netherlands and the political diversion");
 
     function getMaxOfArray(numArray) {
       return Math.max.apply(null, numArray);
@@ -151,8 +220,7 @@ function createMap(map, data){
                 .domain([0, 355])
                 .range(colorbrewer.BuGn[9])
       }
-
-      if (value == "Winnende partij") {
+      else{
         selected_data = winningParty
         color = d3.scaleOrdinal(["#7fc97f","#beaed4","#fdc086","#ffff99","#386cb0","#f0027f","#bf5b17","#666666"])
       }
@@ -178,9 +246,82 @@ function createMap(map, data){
             return color(parseInt(waarde));
           })
 
+      // Legend change
+      if (value == "Winnende partij") {
+
+        // Remove other legend
+        d3.select("#datamap").selectAll("linearGradient").remove()
+        d3.select("#datamap").selectAll("text").remove()
+
+        // Legend dimensions
+        var legendRectSize = 10,
+            legendSpacing = 6;
+
+        // Define legend
+        var legend = svg.selectAll(".legend")
+                      .data(color.domain())
+                      .enter()
+                      .append("g")
+                        .attr("class", "legend")
+                        .attr("transform", function(d, i) {
+                          var height = legendRectSize + legendSpacing;
+                          var offset = height * color.domain().length / 2;
+                          var horz = 8 * legendRectSize + 370;
+                          var vert = i * height - offset + 400;
+
+                          return "translate(" + horz + "," + vert + ")";
+                        })
+
+        // Adding colored squares to legend
+        legend.append("rect")
+              .attr("width", legendRectSize)
+              .attr("height", legendRectSize)
+              .style("fill", color)
+              .style("stroke", color)
+
+        // Adding text to legend
+        legend.append("text")
+              .attr("x", legendRectSize + legendSpacing)
+              .attr("y", legendRectSize - legendSpacing + 5)
+              .text(function(d) { return d; })
+      }
+      else {
+
+        // Remove other legend
+        d3.select("#datamap").selectAll("legend").remove();
+
+        // Append a defs (for definition) element to your SVG
+        var defs = svg.append("defs");
+
+        // Append a linearGradient element to the defs and give it a unique id
+        var linearGradient = defs.append("linearGradient")
+                              .attr("id", "linear-gradient");
+
+        // Horizontal gradient
+        linearGradient
+            .attr("x1", "0%")
+            .attr("y1", "0%")
+            .attr("x2", "100%")
+            .attr("y2", "0%");
+
+        // Set the color for the start (0%)
+        linearGradient.append("stop")
+                      .attr("offset", "0%")
+                      .attr("stop-color", "#f7fbff");
+
+        // Set the color for the end (100%)
+        linearGradient.append("stop")
+                      .attr("offset", "100%")
+                      .attr("stop-color", "#08306b");
+
+        // Draw the rectangle and fill with gradient
+        svg.append("rect")
+            .attr("width", 300)
+            .attr("height", 20)
+            .style("fill", "url(#linear-gradient)");
+      }
     }
 };
-
 
 function pieChart(gemeente, data) {
 
@@ -212,12 +353,12 @@ function pieChart(gemeente, data) {
   })
 
   // Set width, height and radius
-  var width = 800,
-      height = 600,
+  var width = 600,
+      height = 400,
       radius = Math.min(width, height) / 2;
 
   // Legend dimensions
-  var legendRectSize = 25,
+  var legendRectSize = 10,
       legendSpacing = 6;
 
   // Define color scale
@@ -229,7 +370,7 @@ function pieChart(gemeente, data) {
                 .attr("width", width)
                 .attr("height", height)
               .append("g")
-                .attr("transform", "translate(" + (width / 3) + "," + (height / 2) + ")");
+                .attr("transform", "translate(" + (width / 3.1) + "," + (height  / 1.7) + ")");
 
   var arc = d3.arc()
               .innerRadius(radius * 0.4)
@@ -277,7 +418,7 @@ function pieChart(gemeente, data) {
                   .attr("transform", function(d, i) {
                     var height = legendRectSize + legendSpacing;
                     var offset = height * color.domain().length / 2;
-                    var horz = 12 * legendRectSize;
+                    var horz = 10 * legendRectSize + 80;
                     var vert = i * height - offset;
 
                     return "translate(" + horz + "," + vert + ")";
@@ -293,8 +434,17 @@ function pieChart(gemeente, data) {
   // Adding text to legend
   legend.append("text")
         .attr("x", legendRectSize + legendSpacing)
-        .attr("y", legendRectSize - legendSpacing)
+        .attr("y", legendRectSize - legendSpacing + 5)
         .text(function(d) { return d; });
+
+  // Append title
+  svg.append("text")
+      .attr("x", (width / 10) - 60)
+      .attr("y", - 170)
+      .attr("text-anchor", "middle")
+      .style("font-size", "20px")
+      .style("text-decoration", "underline")
+      .text(gemeente)
 
 }
 
@@ -306,7 +456,7 @@ function scatterPlot(gemeente, data) {
   // Remove former dropdown menu
   d3.selectAll(".textDrop").remove()
   d3.selectAll(".xSel").remove()
-  d3.select(".title").remove()
+  // d3.select(".title").remove()
 
   // Get the keys and values of JSON file
   valuesGemeente = Object.values(data[gemeente])
@@ -330,17 +480,12 @@ function scatterPlot(gemeente, data) {
                      { "text" : "Inkomen"},
                    ]
 
-  // Title for scatterplot
-  var title = body.append("text")
-      .text("Scatterplot to analyze whether there is a correlation/causation between de attendance rate/income level of a municipality and the total votes of Forum voor Democratie. The municipalities are shown per province.")
-      .attr("class", "title")
-
   // Select X-axis variable
   var span = body.append("span")
-              .text("Choose between the following X-axis variable: ")
+              .text("Kies de x-as variabel: ")
               .attr("class","textDrop")
 
-  var yInput = body.append("select")
+  var xInput = body.append("select")
                   .attr("id", "xSelect")
                   .attr("class", "xSel")
                   .on("change", xChange)
@@ -350,7 +495,7 @@ function scatterPlot(gemeente, data) {
                 .append("option")
                   .attr("value", function(d) { return d.text; })
                   .text(function(d) { return d.text; })
-  body.append("br")
+
 
   // Variables: width, height, margin
   var body = d3.select("#scatterplot")
@@ -447,6 +592,15 @@ function scatterPlot(gemeente, data) {
   svg.selectAll("circle")
       .on("mouseover", tooltip.show)
       .on("mouseout", tooltip.hide);
+
+  // Title for scatterplot
+  var title = svg.append("text")
+                .attr("x", width / 2)
+                .attr("y", 0)
+                .attr("text-anchor", "middle")
+                .style("font-size", "20px")
+                .style("text-decoration", "underline")
+                .text(valuesGemeente[0])
 
   function xChange() {
     var value = this.value // Get new x value
