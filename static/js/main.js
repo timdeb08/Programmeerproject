@@ -1,5 +1,5 @@
 // Load the datasets
-var requests = [d3.json("/scripts/gemeentegrenzen.json"), d3.json("/scripts/verkiezing.json")];
+var requests = [d3.json("/data/gemeentegrenzen.json"), d3.json("/data/verkiezing.json")];
 Promise.all(requests).then(function(res) {
   initPage(res[1])
   createMap(res[0], res[1])
@@ -18,7 +18,9 @@ function createMap(map, data){
   keys = Object.keys(data)
   values = Object.values(data)
 
+  // Create new dict
   var winningParty = {};
+
   for (i in keys) {
 
     // Get the keys and values
@@ -44,117 +46,115 @@ function createMap(map, data){
 
   }
 
-    // Initiate dropdown with data sections needed
-    var body = d3.select("#datamap")
-    var selectData = [ { "text" : "Forum voor Democratie" },
-                       { "text" : "Winnende partij" },
-                     ]
+  // Initiate dropdown with data sections needed
+  var body = d3.select("#datamap")
+  var selectData = [ { "text" : "Forum voor Democratie" },
+                     { "text" : "Winnende partij" },
+                   ]
 
-     // Select X-axis variable
-     var span = body.append("span")
-                 .text("Kies de variabel: ")
-                 .attr("class","dropMap")
+  // Select X-axis variable
+  var span = body.append("span")
+                  .text("Kies de variabel: ")
+                  .attr("class","dropMap")
 
-     var input = body.append("select")
-                     .attr("id", "dataSelect")
-                     .attr("class", "dataSel")
-                     .on("change", dataChange)
-                   .selectAll("option")
-                   .data(selectData)
-                   .enter()
-                   .append("option")
-                     .attr("value", function(d) { return d.text; })
-                     .text(function(d) { return d.text; })
-     body.append("br")
+  var input = body.append("select")
+                  .attr("id", "dataSelect")
+                  .attr("class", "dataSel")
+                  .on("change", dataChange)
+                  .selectAll("option")
+                  .data(selectData)
+                  .enter()
+                  .append("option")
+                    .attr("value", function(d) { return d.text; })
+                    .text(function(d) { return d.text; })
+  body.append("br")
 
-     // Set width and height
-     var width = 690,
-        height = 550;
+  // Set width and height
+  var width = 690,
+      height = 550;
 
-     // Define map projection
-     var projection = d3.geoMercator()
+  // Define map projection
+  var projection = d3.geoMercator()
                       .scale(6000)
                       .center([0, 52])
                       .rotate([-4.8, 0])
                       .translate([width / 3.3, height / 1.7]);
 
-     // Prepare a path object and apply the projection to it
-     var path = d3.geoPath()
+  // Prepare a path object and apply the projection to it
+  var path = d3.geoPath()
                 .projection(projection);
 
-     // Initiate svg element
-     var svg = d3.select("#datamap")
-                .append("svg")
-                  .attr("width", width)
-                  .attr("height", height);
+  // Initiate svg element
+  var svg = d3.select("#datamap")
+              .append("svg")
+                .attr("width", width)
+                .attr("height", height);
 
-     // Color scaling
-     var color = d3.scaleLinear()
-                  .domain([0, 355])
-                  // .range(["white", "#eff3ff", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6"]);
-                  .range(colorbrewer.Blues[9]);
+  // Color scaling
+  var color = d3.scaleLinear()
+                .domain([0, 355])
+                .range(colorbrewer.Blues[9]);
 
-     // Create tooltip
-     var tooltip = d3.tip()
-                    .attr("class", "d3-tip")
-                    .attr("id", "tooltip")
-                    .offset([-8, 0])
-                    .html(function(d) {
-                      gemeente =  d.properties.Gemeentenaam
-                      value = document.getElementById("dataSelect").value
-                      if (value == "Forum voor Democratie") {
-                      return gemeente + "<br>" + "FvD: " + data[gemeente]["Forum voor Democratie"]
-                      }
-                      else {
-                        return gemeente + "<br>" + "Winnende partij: " + winningParty[gemeente]["Winnende partij"]
-                      }
-                    });
-     svg.call(tooltip);
+  // Create tooltip
+  var tooltip = d3.tip()
+                  .attr("class", "d3-tip")
+                  .attr("id", "tooltip")
+                  .offset([-8, 0])
+                  .html(function(d) {
+                    gemeente =  d.properties.Gemeentenaam
+                    value = document.getElementById("dataSelect").value
+                    if (value == "Forum voor Democratie") {
+                    return gemeente + "<br>" + "FvD: " + data[gemeente]["Forum voor Democratie"]
+                    }
+                    else {
+                      return gemeente + "<br>" + "Winnende partij: " + winningParty[gemeente]["Winnende partij"]
+                    }
+                  });
+  svg.call(tooltip);
 
-     // Make map interactive
-     svg.selectAll("path")
-        .data(map.features)
-        .enter()
-        .append("path")
-          .attr("d", path)
-          .attr("stroke", "rgba(8, 81, 156, 0.2)")
-          .attr("fill", function(d, i) {
-            gemeente = d.properties.Gemeentenaam
-            if (typeof data[gemeente] !== "undefined") {
-              waarde = data[gemeente]["Forum voor Democratie"]
-            }
-            else {
-              waarde = 0;
-            }
-            return color(parseInt(waarde));
-          })
-            .on("mouseover", tooltip.show)
-            .on("mouseout", tooltip.hide)
-            .on("click", function(d) {
-              pieChart(d.properties.Gemeentenaam, data)
-              scatterPlot(d.properties.Gemeentenaam, data)
-            });
+  // Make map interactive
+  svg.selectAll("path")
+      .data(map.features)
+      .enter()
+      .append("path")
+        .attr("d", path)
+        .attr("stroke", "rgba(8, 81, 156, 0.2)")
+        .attr("fill", function(d, i) {
+          gemeente = d.properties.Gemeentenaam
+          if (typeof data[gemeente] !== "undefined") {
+            waarde = data[gemeente]["Forum voor Democratie"]
+          }
+          else {
+            waarde = 0;
+          }
+          return color(parseInt(waarde));
+        })
+          .on("mouseover", tooltip.show)
+          .on("mouseout", tooltip.hide)
+          .on("click", function(d) {
+            pieChart(d.properties.Gemeentenaam, data)
+            scatterPlot(d.properties.Gemeentenaam, data)
+          });
 
-    // Draw legend
-    drawLegend()
+  // Draw legend
+  drawLegend()
 
-    svg.append("text")
-      .attr("x", (width / 2.1))
-      .attr("y", 35)
-      .attr("text-anchor", "middle")
-      .style("font-size", "16px")
-        .style("text-decoration", "underline")
-        .text("Uitslag van de Provinciale Staten verkiezing in 2019");
+  // Title for data map
+  svg.append("text")
+    .attr("x", (width / 2.1))
+    .attr("y", 35)
+    .attr("id", "titlemap")
+    .text("Uitslag van de Provinciale Staten verkiezing in 2019");
 
-    function getMaxOfArray(numArray) {
+  function getMaxOfArray(numArray) {
       return Math.max.apply(null, numArray);
     }
 
-    function getKeyByValue(object, value) {
+  function getKeyByValue(object, value) {
       return Object.keys(object).find(key => object[key] === value);
     }
 
-    function dataChange() {
+  function dataChange() {
 
       var value = this.value // Get new value
 
@@ -194,8 +194,8 @@ function createMap(map, data){
       if (value == "Winnende partij") {
 
         // Remove other legend
-        d3.select("#datamap").selectAll("linearGradient").remove()
-        d3.select("#datamap").selectAll("linearGradient").selectAll("text").remove()
+        d3.selectAll("linearGradient").remove()
+        d3.select("#datamap").selectAll("#labels").remove()
 
         // Legend dimensions
         var legendRectSize = 10,
@@ -232,14 +232,15 @@ function createMap(map, data){
       else {
 
         // Remove other legend
-        d3.select("#datamap").selectAll("legend").remove();
+        d3.select("#datamap").selectAll(".legend").remove()
 
         // Draw legend
         drawLegend()
       }
     }
 
-    function drawLegend() {
+  function drawLegend() {
+
       // Append a defs (for definition) element to your SVG
       var defs = svg.append("defs");
 
@@ -282,14 +283,12 @@ function createMap(map, data){
       }
     }
 
-    function addLabels(svg, x, label) {
-      svg.append("text")
-          .attr("y", 480)
+  function addLabels(svg, x, label) {
+      svg.append("text").attr("y", 480)
           .attr("x", x)
-          .attr("text-anchor", "middle")
-          .attr("font-size", "13px")
-          .text(label)
-          .style("fill", "black");
+          .attr("id", "labels")
+          .text(label);
+
     }
 };
 
@@ -375,7 +374,7 @@ function pieChart(gemeente, data) {
       .style("stroke-width", "2px")
       .style("opacity", 1);
 
-  // Initiate tooltip
+  // Call tooltip
   path.on("mouseover", tooltip.show)
       .on("mouseout", tooltip.hide);
 
@@ -411,9 +410,7 @@ function pieChart(gemeente, data) {
   svg.append("text")
       .attr("x", (width / 10) - 60)
       .attr("y", - 170)
-      .attr("text-anchor", "middle")
-      .style("font-size", "20px")
-      .style("text-decoration", "underline")
+      .attr("id", "titlepie")
       .text(gemeente)
 
 }
@@ -426,7 +423,6 @@ function scatterPlot(gemeente, data) {
   // Remove former dropdown menu
   d3.selectAll(".textDrop").remove()
   d3.selectAll(".xSel").remove()
-  // d3.select(".title").remove()
 
   // Get the keys and values of JSON file
   valuesGemeente = Object.values(data[gemeente])
@@ -469,9 +465,9 @@ function scatterPlot(gemeente, data) {
 
   // Variables: width, height, margin
   var body = d3.select("#scatterplot")
-  var margin = { top: 50, right: 50, bottom: 50, left: 50 }
-  var height = 500 - margin.top - margin.bottom
-  var width = 500 - margin.left - margin.right
+  var margin = { top: 50, right: 50, bottom: 50, left: 50 },
+      height = 500 - margin.top - margin.bottom,
+      width = 500 - margin.left - margin.right;
 
   // Scales: x and y
   var xScale = d3.scaleLinear()
@@ -525,22 +521,21 @@ function scatterPlot(gemeente, data) {
                     .attr("cx", function(d) { return xScale(d.value['Opkomst']); })
                     .attr("cy", function(d) { return yScale(d.value['Forum voor Democratie']); })
                     .attr('r', 8)
-                    .style("fill", "#69b3a2")
-                    .style("opacity", 0.3)
-                    .style("stroke", "white")
+                    .attr("id", "circles")
+
   // Call X-axis
   svg.append("g")
       .attr("class", "axis")
       .attr("id", "xAxis")
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis)
-  svg.append("text") // x-axis label
+
+  // X-axis label
+  svg.append("text")
       .attr('id', 'xAxisLabel')
       .attr('y', height - 16)
       .attr('x', width)
       .attr('dy', '.71em')
-      .style('text-anchor', 'end')
-      .style("font-size", "12px")
       .text('Opkomst')
 
   // Call Y-axis
@@ -548,14 +543,14 @@ function scatterPlot(gemeente, data) {
       .attr('class', 'axis')
       .attr('id', 'yAxis')
       .call(yAxis)
-  svg.append('text') // y-axis Label
+
+  // Y-axis label
+  svg.append('text')
       .attr('id', 'yAxisLabel')
       .attr('transform', 'rotate(-90)')
       .attr('x', 0 - (height / 13))
       .attr('y', 0 + 5)
       .attr('dy', '.71em')
-      .style('text-anchor', 'end')
-      .style("font-size", "12px")
       .text('Forum voor Democratie')
 
   // Initiate tooltip
@@ -567,25 +562,33 @@ function scatterPlot(gemeente, data) {
   var title = svg.append("text")
                 .attr("x", width / 2)
                 .attr("y", 0)
-                .attr("text-anchor", "middle")
-                .style("font-size", "20px")
-                .style("text-decoration", "underline")
+                .attr("id", "titlescat")
                 .text(valuesGemeente[0])
 
   function xChange() {
-    var value = this.value // Get new x value
+
+    // Get new x value
+    var value = this.value
     xScale.domain([
         d3.min([0,d3.min(datasetReady,function (d) { return d.value[value] })]),
         d3.max([0,d3.max(datasetReady,function (d) { return d.value[value] })])
         ])
-    xAxis.scale(xScale) // Change the X scale
-    d3.select("#xAxis") // Redraw X-axis
+
+    // Change the X scale
+    xAxis.scale(xScale)
+
+    // Redraw X-axis
+    d3.select("#xAxis")
       .transition().duration(1000)
       .call(xAxis)
-    d3.select("#xAxisLabel")  // Change X-axis labels
+
+    // Change X-axis labels
+    d3.select("#xAxisLabel")
       .transition().duration(1000)
       .text(value)
-    d3.selectAll("circle") // Move the circles
+
+    // Move the circles
+    d3.selectAll("circle")
       .transition().duration(1000)
       .delay(function(d, i) { return i * 20; })
         .attr("cx", function(d) { return xScale(d.value[value]); })
