@@ -66,4 +66,8 @@ Student number: 11202351
 
 ### Tuesday 25th
 - Vandaag legenda's gemaakt voor de data map. Voor de eerste keus een linear gradient legenda, waarbij de kleur aangeeft hoe hoog het aantal stemmen op Forum voor Democratie is. De andere legenda geeft door middel van de kleur aan welke partij gewonnen heeft voor elke gemeente.
-- Daarnaast de wrappers helemaal kloppend gemaakt en de svg's in de wrappers gestopt, zodat alles netjes lijkt. Ook een tekstvak gemaakt, waar ik het onderzoek en de onderzoeksvraag kan uitleggen. Ook kan daarin worden uitgelegd wat ik elk van de visualisaties weergeven. 
+- Daarnaast de wrappers helemaal kloppend gemaakt en de svg's in de wrappers gestopt, zodat alles netjes lijkt. Ook een tekstvak gemaakt, waar ik het onderzoek en de onderzoeksvraag kan uitleggen. Ook kan daarin worden uitgelegd wat ik elk van de visualisaties weergeven.
+
+### Wednesday 26th
+- Vandaag was een erg gestressde dag, maar ik hebe alles voor het blote oog gelukkig af kunnen krijgen. Alle legenda updaten nu op de juiste manier en de website heb ik ook af kunnen maken. Nog een tekstvak gemaakt, waarin ik een kleine beschrijving van elke visualisatie heb gegeven.
+- Ik heb nog geprobeerd om update functies te schrijven voor de piechart en de scatterplot, maar vanwege alle tijdstress is het niet gelukt helaas. 
