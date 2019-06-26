@@ -70,4 +70,4 @@ Student number: 11202351
 
 ### Wednesday 26th
 - Vandaag was een erg gestressde dag, maar ik hebe alles voor het blote oog gelukkig af kunnen krijgen. Alle legenda updaten nu op de juiste manier en de website heb ik ook af kunnen maken. Nog een tekstvak gemaakt, waarin ik een kleine beschrijving van elke visualisatie heb gegeven.
-- Ik heb nog geprobeerd om update functies te schrijven voor de piechart en de scatterplot, maar vanwege alle tijdstress is het niet gelukt helaas. 
+- Ik heb nog geprobeerd om update functies te schrijven voor de piechart en de scatterplot, maar vanwege alle tijdstress is het niet gelukt helaas.
