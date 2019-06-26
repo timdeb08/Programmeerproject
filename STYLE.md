@@ -1,5 +1,5 @@
 # Style Guide
----
+
 Name: Tim de Boer
 Student nr. : 11202351
 
@@ -21,4 +21,4 @@ Proper naming makes it easy for a third user to understand what a specific varia
 
 __Code grouping__
 ---
-Grouping means to slice up the program in different ways for better comprehension. I was doubting about whether to put my charts in different Javascript-files, but my code in total is about 600 lines so I thought this wasn't needed. I have one main Javascript-file with all the code for creating the visualizations. I have several CSS files corresponding to the HTML file. And every file is in the same doc. 
+Grouping means to slice up the program in different ways for better comprehension. I was doubting about whether to put my charts in different Javascript-files, but my code in total is about 600 lines so I thought this wasn't needed. I have one main Javascript-file with all the code for creating the visualizations. I have several CSS files corresponding to the HTML file. And every file is in the same doc.
