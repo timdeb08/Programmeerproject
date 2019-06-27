@@ -1,5 +1,5 @@
 // Load the datasets
-var requests = [d3.json("/code/data/gemeentegrenzen.json"), d3.json("/code/data/verkiezing.json")];
+var requests = [d3.json("code/data/gemeentegrenzen.json"), d3.json("code/data/verkiezing.json")];
 Promise.all(requests).then(function(res) {
   initPage(res[1])
   createMap(res[0], res[1])
