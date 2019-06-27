@@ -21,8 +21,8 @@ __Features__
 
 __Screenshots__
 ---
-![alt text](https://github.com/timdeb08/Programmeerproject/blob/master/doc/scherm1.png)
-![alt text](https://github.com/timdeb08/Programmeerproject/blob/master/doc/scherm2.png)
+![alt text](https://github.com/timdeb08/Programmeerproject/blob/master/doc/scherm1.jpeg)
+![alt text](https://github.com/timdeb08/Programmeerproject/blob/master/doc/scherm2.jpeg)
 
 The following libraries were used for this project:
 
