@@ -24,7 +24,7 @@ __Screenshots__
 ![alt text](https://github.com/timdeb08/Programmeerproject/blob/master/doc/scherm1.jpg)
 ![alt text](https://github.com/timdeb08/Programmeerproject/blob/master/doc/scherm2.jpg)
 
-The following libraries were used for this project:
+The following libraries were used for this project. For relevant copyright information, please consult the website before using code from this project:
 
 - [Bootstrap](https://getbootstrap.com/)
 - [D3](https://d3js.org/)
