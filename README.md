@@ -1,4 +1,4 @@
-#  Visualization of political diversion in the Netherlands with specific focus on the political gain of Forum voor Democratie during the last elections.
+#  Visualization of political diversion in the Netherlands with specific focus on the political gain of Forum voor Democratie during the last elections
 
 Project of Minor Programming 2019
 
@@ -10,6 +10,9 @@ __Info__
 ---
 This project visualizes the results of the last Provinciale Staten elections in the Netherlands, with a specific focus on the huge gain of the new political party Forum voor Democratie. The research question is as follows: Is there possible cause of the political gain of Forum voor Democratie? In this research, we will discuss two variables which I assume can be a cause of the gain which are the attendance rate and the standardized median income per municipality. All the visualization and datasets are on a municipal level, to give a more detailed view of the political situation and diversion in the Netherlands. Here is a link to the github page:
 https://timdeb08.github.io/Programmeerproject/
+
+If you want to find more information about this project, you can click this link to view the introduction video of my page:
+https://youtu.be/q2pLliydvsk
 
 
 
