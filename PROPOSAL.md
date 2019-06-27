@@ -25,7 +25,7 @@ __Solution__
 - Create a mouseover function for the sunburst to show votes per political party.
 
 *Visualizations*:
-![alt text](https://github.com/timdeb08/Programmeerproject/blob/master/static/img/file.jpeg)
+![alt text](https://github.com/timdeb08/Programmeerproject/blob/master/doc/file.jpg)
 
 __Prerequisites__
 ---
