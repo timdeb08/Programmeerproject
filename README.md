@@ -1,7 +1,9 @@
 #  Visualization of political diversion in the Netherlands with specific focus on the political gain of Forum voor Democratie during the last elections.
 
 Project of Minor Programming 2019
+
 Name: Tim de Boer
+
 Student nr. : 11202351
 
 __Info__
