@@ -1,11 +1,34 @@
 #  Visualization of political diversion in the Netherlands with specific focus on the political gain of Forum voor Democratie during the last elections.
 
+Project of Minor Programming 2019
 Name: Tim de Boer
+Student nr. : 11202351
 
-__Purpose__
+__Info__
 ---
-The purpose of this project is to visualize the outcome of the last Provinciale Staten elections with a specific view on the huge gain of Forum voor Democratie. My research question is: Is there a possible cause of the political gain of Forum voor Democratie? In my research I discuss two variables which I assume can be the cause of the gain, which are the attendance rate and the standardized median income per municipality.
-
-First, a map of the Netherlands is shown, where you can choose between the total votes on Forum voor Democratie and the winner in a specific municipality. Second, there is a pie chart which visualizes the political diversion in a specific municipality, with all the parties voted on. Last but not least, the scatterplot visualizes the municipalities per province where each dot represents a municipality. The x-as represents the attendance rate or standardized median income per municipality. The user can choose between these two variables using a dropdown-menu. On the y-axis the amount of votes on Forum voor Democratie is shown. The scatterplot can be used to find a possible correlation between two variables.
-
+This project visualizes the results of the last Provinciale Staten elections in the Netherlands, with a specific focus on the huge gain of the new political party Forum voor Democratie. The research question is as follows: Is there possible cause of the political gain of Forum voor Democratie? In this research, we will discuss two variables which I assume can be a cause of the gain which are the attendance rate and the standardized median income per municipality. All the visualization and datasets are on a municipal level, to give a more detailed view of the political situation and diversion in the Netherlands. Here is a link to the github page:
 https://timdeb08.github.io/Programmeerproject/
+
+
+
+__Features__
+---
+- Dropdown menu with choice between the total votes on Forum voor Democratie or the winning party
+- Data map of the Netherlands including the total votes on the political party Forum voor Democratie or the winning party per municipality
+- A pie chart which shows the political diversion in a specific municipality. The pie chart can be updated by a click function on the data map.
+- Dropdown menu with choice between the attendance rate or standardized median income per municipality.
+- A scatterplot which shows a potential correlation between the attendance rate or standardized median income per municipality. The scatterplot shows all the municipalities per province. The scatterplot can also be updated by a click function on the data map.
+
+__Screenshots__
+---
+![alt text](https://github.com/timdeb08/Programmeerproject/blob/master/doc/scherm1.png)
+![alt text](https://github.com/timdeb08/Programmeerproject/blob/master/doc/scherm2.png)
+
+The following libraries were used for this project:
+
+- [Bootstrap](https://getbootstrap.com/)
+- [D3](https://d3js.org/)
+- [Topojson](https://github.com/topojson/topojson)
+- [Colorbrewer.js](http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3)
+- [Data source](https://www.kiesraad.nl/)
+- [Data source](https://www.cbs.nl/nl-nl/cijfers)
