@@ -87,7 +87,7 @@ The second challenge I've met during this project was to link all the three visu
 
 Unfortunately, I didn't had the time to properly update the linked visualizations when using the click function. Now I remove the SVG at first and then create a new one, so this does not give the smooth transition when choosing between different municipalities.
 
-__Small things gave large problems__
+__Small things resulted in large problems__
 
 There were a few things which I thought were easy to fix, but then I found out later on that it was not that easy.. For example, the dropdown menu for the data map was almost done, but I only had to fix one 'small' bug. When I clicked on the map, an error popped up that he could not get the value of 'undefined'. Later, I found out that I selected all the paths, not only the paths of the data map. But this small thing took me a whole weekend to fix. So, planning-wise I can do a bit better next time.
 
@@ -100,4 +100,4 @@ Further, I think that the decisions I've made are clear and good. Only the updat
 __The future__
 ---
 I think the results give a clear representation of the political situation in the Netherlands and especially for the political party Forum voor Democratie. It is a helpful tool for presenting the data I've used. However, with more time you could implement the third variable for the dropdown menu of the scatterplot.
-Besides, the values in the scatterplot are all absolute so Forum voor Democratie automatically obtaines more votes in larger municipalities like Amsterdam and Rotterdam. Next, the income is based on the median of a municipality. If there are more outliers in a municipality, the average can give another value for the income and result in larger differences than the median standardized income. 
+Besides, the values in the scatterplot are all absolute so Forum voor Democratie automatically obtaines more votes in larger municipalities like Amsterdam and Rotterdam. Next, the income is based on the median of a municipality. If there are more outliers in a municipality, the average can give another value for the income and result in larger differences than the median standardized income.
